@@ -9,9 +9,9 @@ class EventsController extends Controller
 {
     //
     public function index(){
-        $event = Event::all();
+        $events = Event::all();
         return response()->json(
-            $event, 
+            $events, 
             200, 
             [], 
             JSON_UNESCAPED_UNICODE
