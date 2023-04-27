@@ -11,7 +11,10 @@ class EventsController extends Controller
     public function index(){
         $event = Event::all();
         return response()->json(
-            $event
-            , 200, [], JSON_UNESCAPED_UNICODE);
+            $event, 
+            200, 
+            [], 
+            JSON_UNESCAPED_UNICODE
+        );
     }
 }
