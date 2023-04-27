@@ -1,11 +1,11 @@
 <?php
 
-namespace App\Models;
+namespace App\Model;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Events extends Model
+class Event extends Model
 {
     use HasFactory;
     protected $table = 'events';
