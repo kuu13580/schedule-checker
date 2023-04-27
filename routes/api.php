@@ -15,3 +15,4 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('events', 'App\Http\Controllers\EventsController@index');
+Route::get('users', 'App\Http\Controllers\UsersController@index');
