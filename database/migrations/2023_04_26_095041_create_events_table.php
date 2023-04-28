@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('events', function (Blueprint $table) {
             $table->string('id')->primary();
             $table->string('name');
-            $table->foreignId('user_id')->constrained('users');
+            $table->bigInteger('owner_id')->unsigned();
             $table->timestamps();
         });
     }
