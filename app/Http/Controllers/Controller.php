@@ -19,10 +19,12 @@ class Controller extends BaseController
         }
     }
 
-    protected $hash_error_responce = response()->json(
-        ['message' => 'Hash is not valid'],
-        403,
-        [],
-        JSON_UNESCAPED_UNICODE
-    );
+    protected function SendHashError() {
+        return response()->json(
+                ['message' => 'Hash is not valid'],
+                403,
+                [],
+                JSON_UNESCAPED_UNICODE
+        );
+    } 
 }
