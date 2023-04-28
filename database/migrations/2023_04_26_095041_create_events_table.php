@@ -13,8 +13,8 @@ return new class extends Migration
     {
         Schema::create('events', function (Blueprint $table) {
             $table->string('id')->primary();
-            $table->string('name');
-            $table->bigInteger('owner_id')->unsigned();
+            $table->string('name')->nullable(false);
+            $table->bigInteger('owner_id')->unsigned()->nullable(false);
             $table->timestamps();
         });
     }
