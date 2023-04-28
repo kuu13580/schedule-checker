@@ -19,7 +19,6 @@ return new class extends Migration
             //
             $table->foreign('event_id')->references('id')->on('events');
             $table->foreign('user_id')->references('id')->on('users');
-            $table->primary(['user_id', 'date']);
         });
         Schema::table('event_owner_rel', function (Blueprint $table) {
             //

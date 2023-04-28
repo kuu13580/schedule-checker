@@ -12,7 +12,7 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('event_owner_rel', function (Blueprint $table) {
-            $table->string('event_id')->nullable(false);
+            $table->bigInteger('event_id')->unsigned()->nullable(false);
             $table->bigInteger('owner_id')->unsigned()->nullable(false);
             $table->timestamps();
         });

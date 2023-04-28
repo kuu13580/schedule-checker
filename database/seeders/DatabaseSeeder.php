@@ -17,46 +17,52 @@ class DatabaseSeeder extends Seeder
     public function run(): void
     {
       Event::create([
-          'id' => 'hash-1',
+          'id' => 1,
           'name' => 'Test Event1',
           'start_date' => '2021-01-26',
           'end_date' => '2021-04-27',
+          'hash' => hash('sha256','testhash1'),
       ]);
       Event::create([
-          'id' => 'hash-2',
+          'id' => 2,
           'name' => 'Test Event2',
           'start_date' => '2021-03-26',
           'end_date' => '2021-05-27',
+          'hash' => hash('sha256','testhash2'),
       ]);
 
       User::create([
-          'event_id' => 'hash-1',
+          'id' => 1,
+          'event_id' => 1,
           'name' => 'Test User1',
       ]);
       User::create([
-          'event_id' => 'hash-1',
+          'id' => 2,
+          'event_id' => 1,
           'name' => 'Test User2',
       ]);
       User::create([
-          'event_id' => 'hash-2',
+          'id' => 3,
+          'event_id' => 2,
           'name' => 'Test User3',
       ]);
 
       Schedule::create([
+          'id' => 1,
           'user_id' => 1,
           'date' => '2021-01-26',
-          'event_id' => 'hash-1',
+          'event_id' => 1,
           'status' => 'busy',
       ]);
       Schedule::create([
           'user_id' => 1,
           'date' => '2021-01-27',
-          'event_id' => 'hash-1',
+          'event_id' => 1,
           'status' => 'danger',
       ]);
       
       EventOwnerRel::create([
-          'event_id' => 'hash-1',
+          'event_id' => 1,
           'owner_id' => 1,
       ]);
     }

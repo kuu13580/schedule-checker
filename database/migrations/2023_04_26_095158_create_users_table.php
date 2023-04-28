@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('users', function (Blueprint $table) {
             $table->id();
-            $table->string('event_id')->nullable(false);
+            $table->bigInteger('event_id')->unsigned()->nullable(false);
             $table->string('name')->nullable(false);
             $table->timestamps();
         });
