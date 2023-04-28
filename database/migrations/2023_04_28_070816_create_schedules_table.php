@@ -12,9 +12,9 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('schedules', function (Blueprint $table) {
-            $table->string('event_id')->nullable(false);
             $table->bigInteger('user_id')->unsigned()->nullable(false);
             $table->date('date')->nullable(false);
+            $table->string('event_id')->nullable(false);
             $table->string('status');
             $table->timestamps();
         });

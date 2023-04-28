@@ -14,7 +14,8 @@ return new class extends Migration
         Schema::create('events', function (Blueprint $table) {
             $table->string('id')->primary();
             $table->string('name')->nullable(false);
-            $table->bigInteger('owner_id')->unsigned()->nullable(false);
+            $table->date('start_date')->nullable(false);
+            $table->date('end_date')->nullable(false);
             $table->timestamps();
         });
     }

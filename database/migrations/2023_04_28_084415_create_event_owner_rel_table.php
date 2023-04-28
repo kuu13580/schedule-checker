@@ -11,11 +11,9 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('users', function (Blueprint $table) {
-            $table->id();
+        Schema::create('event_owner_rel', function (Blueprint $table) {
             $table->string('event_id')->nullable(false);
-            $table->string('name')->nullable(false);
-            $table->timestamps();
+            $table->bigInteger('owner_id')->unsigned()->nullable(false);
         });
     }
 
@@ -24,6 +22,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('users');
+        Schema::dropIfExists('event_owner_rel');
     }
 };
