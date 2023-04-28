@@ -14,9 +14,14 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('events', 'App\Http\Controllers\EventsController@index');
-Route::get('events/{id}', 'App\Http\Controllers\EventsController@getEventById');
+use App\Http\Controllers\EventsController;
+use App\Http\Controllers\UsersController;
+use App\Http\Controllers\SchedulesController;
+
+Route::get('events', [EventsController::class, 'index']);
+Route::get('events/{id}', [EventsController::class, 'getEventById']);
+Route::post('events/create', [EventsController::class, 'createEvent']);
 
 
-Route::get('users', 'App\Http\Controllers\UsersController@index');
-Route::get('users/{event_id}', 'App\Http\Controllers\UsersController@getUsersByEventId');
+Route::get('users', [UsersController::class, 'index']);
+Route::get('users/{event_id}', [UsersController::class, 'getUsersByEventId']);
