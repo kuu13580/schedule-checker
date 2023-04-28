@@ -10,7 +10,7 @@ class EventsController extends Controller
 {
     //
     public function index(){
-        $events = Event::all();
+        $events = Event::all()->ToArray();
         return response()->json(
             $events, 
             200, 
@@ -19,8 +19,11 @@ class EventsController extends Controller
         );
     }
 
-    public function getEventById($id){
-        $event = Event::find($id);
+    public function getEventById($id, Request $request){
+        $event = Event::leftjoin('event_owner_rel', 'events.id', '=', 'event_owner_rel.event_id')
+            ->find($id);
+        // ハッシュ値チェック
+        if (!$this->isHashMatch($request->hash, $event->hash)) return $this->SendHashError();
         $owner_id = EventOwnerRel::where('event_id', $id)->first()->owner_id;
         $event['owner_id'] = $owner_id;
         return response()->json(

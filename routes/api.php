@@ -19,3 +19,4 @@ Route::get('events/{id}', 'App\Http\Controllers\EventsController@getEventById');
 
 
 Route::get('users', 'App\Http\Controllers\UsersController@index');
+Route::get('users/{event_id}', 'App\Http\Controllers\UsersController@getUsersByEventId');
