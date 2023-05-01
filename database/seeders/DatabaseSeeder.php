@@ -35,16 +35,19 @@ class DatabaseSeeder extends Seeder
           'id' => 1,
           'event_id' => 1,
           'name' => 'Test User1',
+          'password' => password_hash('testpass', PASSWORD_DEFAULT),
       ]);
       User::create([
           'id' => 2,
           'event_id' => 1,
           'name' => 'Test User2',
+          'password' => null,
       ]);
       User::create([
           'id' => 3,
           'event_id' => 2,
           'name' => 'Test User3',
+          'password' => password_hash('testpass2', PASSWORD_DEFAULT),
       ]);
 
       Schedule::create([
@@ -65,5 +68,9 @@ class DatabaseSeeder extends Seeder
           'event_id' => 1,
           'owner_id' => 1,
       ]);
+      EventOwnerRel::create([
+        'event_id' => 2,
+        'owner_id' => 3,
+    ]);
     }
 }
