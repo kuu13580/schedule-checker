@@ -10,3 +10,8 @@ export type DateRange = {
   start: Dayjs;
   end: Dayjs;
 }
+
+export type User = {
+  id: number;
+  name: string;
+}
