@@ -23,7 +23,7 @@ export const StatusRadio = (props: {selectedStatus: string, setSelectedStatus: a
   return (
     <>
       <Radio {...controlProps('busy')} sx={{...controlSx('red')}}/>busy
-      <Radio {...controlProps('danger')} sx={{...controlSx('yellow')}}/>danger
+      <Radio {...controlProps('danger')} sx={{...controlSx('#FFD700')}}/>danger
       <Radio {...controlProps('')} sx={{...controlSx('black')}}/>none
     </>
   )
