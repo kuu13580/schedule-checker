@@ -1,19 +1,24 @@
 import { Box, Typography, Paper } from '@mui/material';
 import { Dayjs } from 'dayjs';
+import { DateRange } from '../models';
 
-export const CalenderDay = (props: { date: Dayjs, status: string | null }) => {
+export const CalenderDay = (props: { date: Dayjs, status: string | null, range: DateRange }) => {
   const date = props.date;
   const status = props.status;
+  const range = props.range;
   const day = date.format('D');
   const Holidays = require('japanese-holidays');
+  const isEnable = date.isAfter(range.start) && date.isBefore(range.end);
   const bgColor =
-    status === 'busy' ? 'red'
+    !isEnable ? 'gray'
+    : status === 'busy' ? 'red'
     : status === 'danger' ? 'yellow'
     : 'white';
   const dateTextColor = 
     date.weekday() === 0 || Holidays.isHoliday(date.toDate()) ? 'red':
     date.weekday() === 6 ? 'blue':
     'black';
+  const dateTextOpacity = !isEnable ? 0.5 : 1;
   return (
     <Box 
       sx={{width : '100%',
@@ -22,7 +27,7 @@ export const CalenderDay = (props: { date: Dayjs, status: string | null }) => {
       justifyContent: 'center',
       alignItems: 'center',}}>
       <Paper sx={{ bgcolor: bgColor, width : '90%', height: '90%'}}>
-        <Typography sx={{ color: dateTextColor }}>{day}</Typography>
+        <Typography sx={{ color: dateTextColor, opacity: dateTextOpacity }}>{day}</Typography>
       </Paper>
     </Box>
   );
