@@ -27,7 +27,8 @@ export const CalenderDay = (props: { date: Dayjs, status: string | null, range: 
       justifyContent: 'center',
       alignItems: 'center',}}
     >
-      <Paper sx={{ bgcolor: bgColor, width : '90%', height: '90%'}}>
+      <Paper sx={[{ bgcolor: bgColor, width : '90%', height: '90%',}, 
+        isEnable && {'&:hover': {bgcolor : 'silver'}}]}>
         <Typography sx={{ color: dateTextColor, opacity: dateTextOpacity }}>{day}</Typography>
       </Paper>
     </Box>
