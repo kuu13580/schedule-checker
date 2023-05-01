@@ -33,7 +33,7 @@ export const CalenderDay = (props: { date: Dayjs, status: string, range: DateRan
     >
       <Typography sx={{ color: dateTextColor, opacity: dateTextOpacity , fontSize: { xs: '1rem', sm: '2rem' }}}>{day}</Typography>
       <Paper sx={[{ bgcolor: bgColor, width : '90%', height: '90%',}, 
-        isEnable && {'&:hover': {bgcolor : 'silver'}}]}
+        isEnable && {'&:hover': {filter: 'brightness(0.8)'}}]}
         onClick={() => {setDataById(id)}}>
       </Paper>
     </Box>

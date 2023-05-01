@@ -25,7 +25,7 @@ export const CalenderMonth = (props: { month: Dayjs, data: Schedule[], range: Da
     data.findIndex((d) => d.date.isSame(daysArray[0]));
 
   return (
-    <Grid container spacing={0} justifyContent="space-between">
+    <Grid container spacing={0} justifyContent="space-between" sx={{ md: {px: 1} }}>
       {
         daysArray.map((date, index) => {
           return (
