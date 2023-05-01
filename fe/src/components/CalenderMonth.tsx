@@ -29,12 +29,14 @@ export const CalenderMonth = (props: { month: Dayjs, data: Schedule[], range: Da
       {
         daysArray.map((date, index) => {
           return (
-            <AspectRatio onClick={() => {setDataById(Math.max(firstDateId + index, -1))}} key={index} sx={{width : 'calc(100% / 7)'}} ratio={1}>
+            <AspectRatio key={index} sx={{width : 'calc(100% / 7)'}} ratio={1}>
               <Grid xs={1}>
-                <CalenderDay 
+                <CalenderDay
+                  id={Math.max(firstDateId + index, -1)}
                   date={date} 
                   status={statusArray[index]} 
                   range={range}
+                  setDataById={setDataById}
                 />
               </Grid>
             </AspectRatio>

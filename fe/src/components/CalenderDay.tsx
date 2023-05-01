@@ -2,10 +2,13 @@ import { Box, Typography, Paper } from '@mui/material';
 import { Dayjs } from 'dayjs';
 import { DateRange } from '../models';
 
-export const CalenderDay = (props: { date: Dayjs, status: string, range: DateRange }) => {
+export const CalenderDay = (props: { date: Dayjs, status: string, range: DateRange, setDataById: any, id: number }) => {
   const date = props.date;
   const status = props.status;
   const range = props.range;
+  const setDataById = props.setDataById;
+  const id = props.id;
+
   const day = date.format('D');
   const Holidays = require('japanese-holidays');
   const isEnable = date.isAfter(range.start) && date.isBefore(range.end.add(1, 'day'));
@@ -30,7 +33,8 @@ export const CalenderDay = (props: { date: Dayjs, status: string, range: DateRan
     >
       <Typography sx={{ color: dateTextColor, opacity: dateTextOpacity , fontSize: { xs: '1rem', sm: '2rem' }}}>{day}</Typography>
       <Paper sx={[{ bgcolor: bgColor, width : '90%', height: '90%',}, 
-        isEnable && {'&:hover': {bgcolor : 'silver'}}]}>
+        isEnable && {'&:hover': {bgcolor : 'silver'}}]}
+        onClick={() => {setDataById(id)}}>
       </Paper>
     </Box>
   );
