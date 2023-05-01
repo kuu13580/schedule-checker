@@ -1,9 +1,11 @@
-import { CalenderDay } from "../components";
+import { Container } from "@mui/material";
 
 export const Home = () => {
   return (
     <>
-      <div>Home</div>
+      <Container>
+        <div>Home</div>
+      </Container>
     </>
   );
 }
