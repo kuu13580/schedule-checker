@@ -19,9 +19,9 @@ export const CalenderMonth = (props: { month: Dayjs, data: Schedule | null}) => 
       {
         daysArray.map((date, index) => {
           return (
-            <AspectRatio sx={{width : 'calc(100% / 7)'}} ratio={1}>
+            <AspectRatio key={index} sx={{width : 'calc(100% / 7)'}} ratio={1}>
               <Grid xs={1}>
-                <CalenderDay key={index} date={date} status={null}/>
+                <CalenderDay date={date} status={null}/>
               </Grid>
             </AspectRatio>
           );
