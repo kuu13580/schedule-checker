@@ -2,7 +2,7 @@ import { Box, Typography, Paper } from '@mui/material';
 import { Dayjs } from 'dayjs';
 import { DateRange } from '../models';
 
-export const CalenderDay = (props: { date: Dayjs, status: string | null, range: DateRange }) => {
+export const CalenderDay = (props: { date: Dayjs, status: string, range: DateRange }) => {
   const date = props.date;
   const status = props.status;
   const range = props.range;

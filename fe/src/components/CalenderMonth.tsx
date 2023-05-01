@@ -4,7 +4,7 @@ import Grid from '@mui/material/Unstable_Grid2';
 import { AspectRatio } from '@mui/joy';
 import { DateRange, Schedule } from '../models';
 
-export const CalenderMonth = (props: { month: Dayjs, data: Schedule | null, range: DateRange}) => {
+export const CalenderMonth = (props: { month: Dayjs, data: Schedule[], range: DateRange}) => {
   const month = props.month.startOf('month');
   const data = props.data;
   const range = props.range;
@@ -12,6 +12,10 @@ export const CalenderMonth = (props: { month: Dayjs, data: Schedule | null, rang
   const numDays = Math.ceil((month.daysInMonth() + month.weekday()) / 7) * 7;
   const startDate = month.startOf('month').subtract(month.weekday(), 'day');
   const daysArray = Array.from({length: numDays}, (_, i) => startDate.add(i, 'day'));
+  const statusArray = daysArray.map((date) => {
+    const target = data.find((d) => d.date.isSame(date));
+    return target ? target.status : '';
+  });
   return (
     <Grid container spacing={0} justifyContent="space-between">
       {
@@ -21,7 +25,7 @@ export const CalenderMonth = (props: { month: Dayjs, data: Schedule | null, rang
               <Grid xs={1}>
                 <CalenderDay 
                   date={date} 
-                  status={null} 
+                  status={statusArray[index]} 
                   range={range}
                 />
               </Grid>
