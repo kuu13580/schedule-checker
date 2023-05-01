@@ -8,7 +8,7 @@ export const CalenderDay = (props: { date: Dayjs, status: string | null, range: 
   const range = props.range;
   const day = date.format('D');
   const Holidays = require('japanese-holidays');
-  const isEnable = date.isAfter(range.start) && date.isBefore(range.end);
+  const isEnable = date.isAfter(range.start) && date.isBefore(range.end.add(1, 'day'));
   const bgColor =
     !isEnable ? 'gray'
     : status === 'busy' ? 'red'
