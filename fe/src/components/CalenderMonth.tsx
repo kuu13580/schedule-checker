@@ -1,11 +1,8 @@
 import dayjs, { Dayjs } from 'dayjs';
-import weekday from 'dayjs/plugin/weekday'
 import { CalenderDay } from './CalenderDay';
 import Grid from '@mui/material/Unstable_Grid2';
 import { AspectRatio } from '@mui/joy';
 import { Schedule } from '../models';
-
-dayjs.extend(weekday);
 
 export const CalenderMonth = (props: { month: Dayjs, data: Schedule | null}) => {
   const month = props.month.startOf('month');
