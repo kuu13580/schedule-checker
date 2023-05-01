@@ -24,12 +24,13 @@ export const CalenderDay = (props: { date: Dayjs, status: string, range: DateRan
       sx={{width : '100%',
       height: '100%',
       display: 'flex',
+      flexDirection: 'column',
       justifyContent: 'center',
       alignItems: 'center',}}
     >
+      <Typography sx={{ color: dateTextColor, opacity: dateTextOpacity , fontSize: { xs: '1rem', sm: '2rem' }}}>{day}</Typography>
       <Paper sx={[{ bgcolor: bgColor, width : '90%', height: '90%',}, 
         isEnable && {'&:hover': {bgcolor : 'silver'}}]}>
-        <Typography sx={{ color: dateTextColor, opacity: dateTextOpacity }}>{day}</Typography>
       </Paper>
     </Box>
   );
