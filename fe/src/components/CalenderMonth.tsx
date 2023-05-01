@@ -19,7 +19,11 @@ export const CalenderMonth = (props: { month: Dayjs, data: Schedule | null, rang
           return (
             <AspectRatio key={index} sx={{width : 'calc(100% / 7)'}} ratio={1}>
               <Grid xs={1}>
-                <CalenderDay date={date} status={null} range={range}/>
+                <CalenderDay 
+                  date={date} 
+                  status={null} 
+                  range={range}
+                />
               </Grid>
             </AspectRatio>
           );
