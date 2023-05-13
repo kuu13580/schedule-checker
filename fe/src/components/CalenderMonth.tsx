@@ -1,4 +1,4 @@
-import dayjs, { Dayjs } from 'dayjs';
+import { Dayjs } from 'dayjs';
 import { CalenderDay } from './CalenderDay';
 import Grid from '@mui/material/Unstable_Grid2';
 import { AspectRatio } from '@mui/joy';
