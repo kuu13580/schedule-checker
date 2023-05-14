@@ -4,9 +4,11 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { Create, Home } from './pages';
 import dayjs from 'dayjs';
 import weekday from 'dayjs/plugin/weekday';
+import 'dayjs/locale/ja';
 import { Test } from './pages/Test';
 
 dayjs.extend(weekday);
+dayjs.locale('ja');
 
 function App() {
   // const [event, setEvent] = useState<number | null>(null);
