@@ -43,6 +43,9 @@ class EventsController extends Controller
             'owner_name' => 'required|string|max:256',
         ]);
 
+        // TODO: 日付の順序チェック
+        
+
         // Eventの作成
         $event = new Event;
         $event->name = $attr['name'];
