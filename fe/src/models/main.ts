@@ -15,3 +15,11 @@ export type User = {
   id: number;
   name: string;
 }
+
+export type EventForm = {
+  name: string;
+  startDate: Dayjs | null;
+  endDate: Dayjs | null;
+  ownerName: string;
+  password: string;
+}
