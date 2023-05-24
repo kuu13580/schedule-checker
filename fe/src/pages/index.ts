@@ -1,3 +1,3 @@
 export * from './Home';
-export * from './Test';
+export * from './Register';
 export * from './Create';

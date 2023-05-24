@@ -14,7 +14,7 @@ const range: DateRange = {
   end: dayjs('2023-06-15'),
 };
 
-export const Test = () => {
+export const Register = () => {
   const [data, setData] = useState<Schedule[]>([]);
   const [selectedMonth, setSelectedMonth] = useState<dayjs.Dayjs>(range.start.startOf('month'));
   const [selectedStatus, setSelectedStatus] = useState<string>('danger');

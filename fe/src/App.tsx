@@ -5,7 +5,7 @@ import { Create, Home } from './pages';
 import dayjs from 'dayjs';
 import weekday from 'dayjs/plugin/weekday';
 import 'dayjs/locale/ja';
-import { Test } from './pages/Test';
+import { Register } from './pages';
 
 dayjs.extend(weekday);
 dayjs.locale('ja');
@@ -16,7 +16,7 @@ function App() {
     <Router>
       <Routes>
         <Route path="/" element={<Home/>} />
-        <Route path="/test" element={<Test/>} />
+        <Route path="/register" element={<Register/>} />
         <Route path="/create" element={<Create/>} />
       </Routes>
     </Router>
