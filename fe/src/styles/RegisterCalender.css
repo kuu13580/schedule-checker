@@ -1,0 +1,7 @@
+.ant-picker-calendar-mode-switch {
+  display: none;
+}
+
+.ant-picker-calendar .ant-picker-calendar-header {
+  justify-content: left;
+}

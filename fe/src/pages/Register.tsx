@@ -1,7 +1,7 @@
 import { Button, Container } from "@mui/material";
 import { DatePicker, LocalizationProvider } from '@mui/x-date-pickers';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs'
-import { CalenderMonth, StatusRadio } from "../components";
+import { CalenderMonth, RegisterCalender, StatusRadio } from "../components";
 import dayjs from 'dayjs';
 import { DateRange } from "../models";
 import ja from 'dayjs/locale/ja';
@@ -68,17 +68,8 @@ export const Register = () => {
   return (
     <>
       <Container maxWidth='md'>
-        <LocalizationProvider dateAdapter={AdapterDayjs} adapterLocale={ja}>
-          <DatePicker
-            views={['month', 'year']}
-            minDate={range.start.startOf('month')}
-            maxDate={range.end.endOf('month')}
-            value={selectedMonth}
-            onChange={(date) => setSelectedMonth(dayjs(date))}
-          />
-        </LocalizationProvider>
         <StatusRadio selectedStatus={selectedStatus} setSelectedStatus={setSelectedStatus} />
-        <CalenderMonth
+        <RegisterCalender 
           month={selectedMonth.startOf('month')}
           data={data}
           range={range}
