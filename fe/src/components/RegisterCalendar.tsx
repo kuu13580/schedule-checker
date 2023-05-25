@@ -6,8 +6,7 @@ import jaJP from 'antd/lib/locale/ja_JP';
 import "../styles/RegisterCalendar.css"
 import { Box } from "@mui/material";
 
-export const RegisterCalendar = (props: { month: Dayjs, data: Schedule[], range: DateRange, setDataById: any}) => {
-  const month = props.month.startOf('month');
+export const RegisterCalendar = (props: { data: Schedule[], range: DateRange, setDataById: (id: number) => void}) => {
   const data = props.data;
   const range = props.range;
   const setDataById = props.setDataById;
@@ -27,6 +26,7 @@ export const RegisterCalendar = (props: { month: Dayjs, data: Schedule[], range:
         <Calendar
           cellRender={dateCellRender}
           validRange={[range.start, range.end]}
+          defaultValue={range.start}
         />
       </ConfigProvider>
     </>

@@ -7,13 +7,12 @@ import { Schedule } from "../models";
 
 // 仮データ
 const range: DateRange = {
-  start: dayjs('2023-05-06'),
-  end: dayjs('2023-06-15'),
+  start: dayjs('2023-07-06'),
+  end: dayjs('2023-08-15'),
 };
 
 export const Register = () => {
   const [data, setData] = useState<Schedule[]>([]);
-  const [selectedMonth, setSelectedMonth] = useState<dayjs.Dayjs>(range.start.startOf('month'));
   const [selectedStatus, setSelectedStatus] = useState<string>('danger');
 
   // 初回データセット
@@ -40,6 +39,7 @@ export const Register = () => {
     });
   }
 
+  // rangeに対応するデータを初期化
   const initData = (range: DateRange, data: Schedule[]) => {
     const numDays = range.end.diff(range.start, 'day') + 1;
     return Array.from({length: numDays}, (_, i) => {
@@ -66,8 +66,7 @@ export const Register = () => {
     <>
       <Container maxWidth='md'>
         <StatusRadio selectedStatus={selectedStatus} setSelectedStatus={setSelectedStatus} />
-        <RegisterCalendar 
-          month={selectedMonth.startOf('month')}
+        <RegisterCalendar
           data={data}
           range={range}
           setDataById={setDataById}
