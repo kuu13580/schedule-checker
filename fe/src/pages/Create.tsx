@@ -7,6 +7,8 @@ import ja from 'dayjs/locale/ja';
 import { EventForm } from "../models";
 import { useEffect, useState } from "react";
 import { Box } from "@mui/system";
+import axios from "axios";
+
 
 export const Create = () => {
   const { register, control, handleSubmit, formState: { errors }, watch } = useForm<EventForm>({
@@ -38,7 +40,22 @@ export const Create = () => {
 
   const onSubmit = (data: any) => {
     if (dateError) return;
+    console.log({...data, startDate: startDate?.format('YYYY-MM-DD'), endDate: endDate?.format('YYYY-MM-DD')});
     // TODO: API通信
+    axios.post(process.env.REACT_APP_API_URL + '/events/create', {...data, startDate: startDate?.format('YYYY-MM-DD'), endDate: endDate?.format('YYYY-MM-DD')})
+      .then(res => {
+        if (res.status !== 200) {
+          console.log(res);
+          return;
+        }
+        const eventId = res.data["event_id"];
+        const hash = res.data["pass"];
+        // TODO: リダイレクト
+        // location.href = `/events/${eventId}?hash=${hash}`;
+      }).catch(err => {
+        console.log(err);
+      }
+    );
   }
 
   return (

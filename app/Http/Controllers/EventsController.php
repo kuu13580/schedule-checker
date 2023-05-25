@@ -38,10 +38,10 @@ class EventsController extends Controller
     public function createEvent(Request $request){
         $attr = $request->validate([
             'name' => 'required|string|max:256',
-            'start_date' => 'required|date',
-            'end_date' => 'required|date',
-            'owner_name' => 'required|string|max:256',
-            'password' => 'required|numeric|size:4'
+            'startDate' => 'required|date',
+            'endDate' => 'required|date',
+            'ownerName' => 'required|string|max:256',
+            'password' => 'required|numeric|digits:4'
         ]);
 
         // TODO: 日付の順序チェック
@@ -50,8 +50,8 @@ class EventsController extends Controller
         // Eventの作成
         $event = new Event;
         $event->name = $attr['name'];
-        $event->start_date = $attr['start_date'];
-        $event->end_date = $attr['end_date'];
+        $event->start_date = $attr['startDate'];
+        $event->end_date = $attr['endDate'];
         $pass = substr(hash('sha256', $attr['name'].date('Y-m-d-H-i-s')), 0, 5);
         $event->hash = hash('sha256', $pass);
         $event->save();
@@ -59,7 +59,7 @@ class EventsController extends Controller
         // ownerユーザーの作成
         $owner = new User;
         $owner->event_id = $event->id;
-        $owner->name = $attr['owner_name'];
+        $owner->name = $attr['ownerName'];
         $owner->password = $attr['password'];
         $owner->save();
 
