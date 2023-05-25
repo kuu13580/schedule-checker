@@ -6,15 +6,16 @@ import jaJP from 'antd/lib/locale/ja_JP';
 import "../styles/RegisterCalendar.css"
 import { Box } from "@mui/material";
 
-export const RegisterCalendar = (props: { data: Schedule[], range: DateRange, setDataById: (id: number) => void}) => {
+export const RegisterCalendar = (props: { data: Schedule[], range: DateRange, setStatusByDate: (date: Dayjs) => void}) => {
   const data = props.data;
   const range = props.range;
-  const setDataById = props.setDataById;
+  const setStatusByDate = props.setStatusByDate;
 
 
   const dateCellRender = (value: Dayjs) => {
     return (
       <Box>
+        {data.find((d) => d.date.isSame(value))?.status || ""}
       </Box>
     );
   };
@@ -27,6 +28,7 @@ export const RegisterCalendar = (props: { data: Schedule[], range: DateRange, se
           cellRender={dateCellRender}
           validRange={[range.start, range.end]}
           defaultValue={range.start}
+          onSelect={(date: Dayjs) => setStatusByDate(date)}
         />
       </ConfigProvider>
     </>

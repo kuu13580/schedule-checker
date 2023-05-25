@@ -1,7 +1,6 @@
 import { Dayjs } from "dayjs";
 
 export type Schedule = {
-  id?: number;
   date: Dayjs;
   status: string;
 }

@@ -1,5 +1,6 @@
 import { Button, Container } from "@mui/material";
 import { RegisterCalendar, StatusRadio } from "../components";
+import { Dayjs } from "dayjs";
 import dayjs from 'dayjs';
 import { DateRange } from "../models";
 import { useEffect, useState } from "react";
@@ -7,8 +8,8 @@ import { Schedule } from "../models";
 
 // 仮データ
 const range: DateRange = {
-  start: dayjs('2023-07-06'),
-  end: dayjs('2023-08-15'),
+  start: dayjs('2023-05-06'),
+  end: dayjs('2023-06-15'),
 };
 
 const testData: Schedule[] = [
@@ -25,7 +26,7 @@ const testData: Schedule[] = [
 export const Register = () => {
   const [data, setData] = useState<Schedule[]>([]);
   const [selectedStatus, setSelectedStatus] = useState<string>('danger');
-  
+
   // 初回データセット
   useEffect(() => {
     setData(initData(range, testData));
@@ -41,8 +42,8 @@ export const Register = () => {
   // rangeに対応するデータを初期化
   const initData = (range: DateRange, data: Schedule[]) => {
     const numDays = range.end.diff(range.start, 'day') + 1;
-    return Array.from({length: numDays}, (_, i) => {
-      const status = data.find((d) => d.date.isSame(range.start.add(i, 'day')))?.status || '';
+    return Array.from({ length: numDays }, (_, i) => {
+      const status = data.find((d) => d.date.isSame(range.start.add(i, 'day')))?.status || 'none';
       return {
         id: i,
         date: range.start.add(i, 'day'),
@@ -52,14 +53,16 @@ export const Register = () => {
   }
 
   // idに対応するデータを更新
-  const setDataById = (id: number) => {
-    if (id === -1) return;
+  const setStatusByDate = (date: Dayjs) => {
     setData((prev) => {
-      const newData = [...prev];
-      newData[id].status = selectedStatus;
-      return newData;
+      return prev.map((d) => {
+        if (d.date.isSame(date)) {
+          return { ...d, status: selectedStatus };
+        }
+        return d;
+      });
     });
-  }
+  };
 
   return (
     <>
@@ -68,7 +71,7 @@ export const Register = () => {
         <RegisterCalendar
           data={data}
           range={range}
-          setDataById={setDataById}
+          setStatusByDate={setStatusByDate}
         />
         <Button variant="contained" color="primary">保存</Button>
       </Container>
