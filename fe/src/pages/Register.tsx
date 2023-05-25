@@ -13,19 +13,18 @@ const range: DateRange = {
 };
 
 const testData: Schedule[] = [
-  { date: dayjs('2023-05-07'), status: 'busy' },
-  { date: dayjs('2023-05-08'), status: 'danger' },
-  { date: dayjs('2023-05-09'), status: '' },
-  { date: dayjs('2023-05-10'), status: 'busy' },
-  { date: dayjs('2023-05-11'), status: 'busy' },
-  { date: dayjs('2023-06-02'), status: 'busy' },
-  { date: dayjs('2023-06-06'), status: 'danger' },
-  { date: dayjs('2023-06-12'), status: 'danger' },
+  { date: dayjs('2023-05-07'), status: 'unavailable' },
+  { date: dayjs('2023-05-08'), status: 'potential' },
+  { date: dayjs('2023-05-10'), status: 'unavailable' },
+  { date: dayjs('2023-05-11'), status: 'unavailable' },
+  { date: dayjs('2023-06-02'), status: 'unavailable' },
+  { date: dayjs('2023-06-06'), status: 'potential' },
+  { date: dayjs('2023-06-12'), status: 'potential' },
 ];
 
 export const Register = () => {
   const [data, setData] = useState<Schedule[]>([]);
-  const [selectedStatus, setSelectedStatus] = useState<string>('danger');
+  const [selectedStatus, setSelectedStatus] = useState<string>('unavailable');
 
   // 初回データセット
   useEffect(() => {
@@ -43,7 +42,7 @@ export const Register = () => {
   const initData = (range: DateRange, data: Schedule[]) => {
     const numDays = range.end.diff(range.start, 'day') + 1;
     return Array.from({ length: numDays }, (_, i) => {
-      const status = data.find((d) => d.date.isSame(range.start.add(i, 'day')))?.status || 'none';
+      const status = data.find((d) => d.date.isSame(range.start.add(i, 'day')))?.status || 'available';
       return {
         id: i,
         date: range.start.add(i, 'day'),

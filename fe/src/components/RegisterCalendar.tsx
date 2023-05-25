@@ -13,9 +13,20 @@ export const RegisterCalendar = (props: { data: Schedule[], range: DateRange, se
 
 
   const dateCellRender = (value: Dayjs) => {
+    const status = data.find((d) => d.date.isSame(value))?.status || "";
+    const bgColor =
+      status === 'unavailable' ? 'red'
+    : status === 'potential' ? 'yellow'
+    : status === 'available' ? 'green'
+    : 'gray';
     return (
-      <Box>
-        {data.find((d) => d.date.isSame(value))?.status || ""}
+      <Box
+        sx={{
+          width: "100%",
+          height: "100%",
+          backgroundColor: bgColor
+        }}
+      >
       </Box>
     );
   };
