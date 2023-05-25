@@ -16,7 +16,7 @@ class SchedulesController extends Controller
         $schedules = Schedule::where('user_id', $user_id)->get();
 
         // パスワードを確認
-        if (User::where('id', $user_id)->first()->password != $attr['password']) return $this->SendError('password is incorrect.');
+        if (User::where('id', $user_id)->first()->password != password_hash($attr['password'], PASSWORD_DEFAULT)) return $this->SendError('password is incorrect.');
 
         return response()->json($schedules);
     }
