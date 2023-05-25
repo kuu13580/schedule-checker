@@ -1,9 +1,11 @@
 import { TextField } from '@mui/material';
 import { useState } from 'react';
+import { set } from 'react-hook-form';
 
 export const PasswordBox = () => {
 
   const [password, setPassword] = useState<string>('');
+  const [isError, setIsError] = useState<boolean>(false);
 
   const handlePasswordChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const inputValue = event.target.value;
@@ -16,12 +18,14 @@ export const PasswordBox = () => {
     }
     
     setPassword(inputValue);
+    setIsError(false);
 
     // 4桁入力されたら認証
     if (inputValue.length === 4) authenticate(inputValue);
   };
 
   const authenticate = (password: string) => {
+    setIsError(true);
     // パスワード認証
     console.log("authenticate!");
   }
@@ -35,6 +39,8 @@ export const PasswordBox = () => {
         type="password"
         margin='normal'
         inputProps={{ maxLength: 4 }}
+        error={isError}
+        helperText={isError && "パスワードが間違っています"}
         />
     </>
   )
