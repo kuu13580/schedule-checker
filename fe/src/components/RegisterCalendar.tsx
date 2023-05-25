@@ -3,10 +3,10 @@ import { Schedule } from "../models";
 import { DateRange } from "../models";
 import { Dayjs } from "dayjs";
 import jaJP from 'antd/lib/locale/ja_JP';
-import "../styles/RegisterCalender.css"
+import "../styles/RegisterCalendar.css"
 import { Box } from "@mui/material";
 
-export const RegisterCalender = (props: { month: Dayjs, data: Schedule[], range: DateRange, setDataById: any}) => {
+export const RegisterCalendar = (props: { month: Dayjs, data: Schedule[], range: DateRange, setDataById: any}) => {
   const month = props.month.startOf('month');
   const data = props.data;
   const range = props.range;

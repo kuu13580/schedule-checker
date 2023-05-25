@@ -1,10 +1,10 @@
 import { Dayjs } from 'dayjs';
-import { CalenderDay } from './CalenderDay';
+import { CalendarDay } from './CalendarDay';
 import Grid from '@mui/material/Unstable_Grid2';
 import { AspectRatio } from '@mui/joy';
 import { DateRange, Schedule } from '../models';
 
-export const CalenderMonth = (props: { month: Dayjs, data: Schedule[], range: DateRange, setDataById: any}) => {
+export const CalendarMonth = (props: { month: Dayjs, data: Schedule[], range: DateRange, setDataById: any}) => {
   const month = props.month.startOf('month');
   const data = props.data;
   const range = props.range;
@@ -31,7 +31,7 @@ export const CalenderMonth = (props: { month: Dayjs, data: Schedule[], range: Da
           return (
             <AspectRatio key={index} sx={{width : 'calc(100% / 7)'}} ratio={1}>
               <Grid xs={1}>
-                <CalenderDay
+                <CalendarDay
                   id={Math.max(firstDateId + index, -1)}
                   date={date} 
                   status={statusArray[index]} 

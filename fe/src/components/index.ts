@@ -1,4 +1,4 @@
-export * from './CalenderDay';
-export * from './CalenderMonth';
+export * from './CalendarDay';
+export * from './CalendarMonth';
 export * from './StatusRadio';
-export * from './RegisterCalender';
+export * from './RegisterCalendar';

@@ -1,5 +1,5 @@
 import { Button, Container } from "@mui/material";
-import { RegisterCalender, StatusRadio } from "../components";
+import { RegisterCalendar, StatusRadio } from "../components";
 import dayjs from 'dayjs';
 import { DateRange } from "../models";
 import { useEffect, useState } from "react";
@@ -66,7 +66,7 @@ export const Register = () => {
     <>
       <Container maxWidth='md'>
         <StatusRadio selectedStatus={selectedStatus} setSelectedStatus={setSelectedStatus} />
-        <RegisterCalender 
+        <RegisterCalendar 
           month={selectedMonth.startOf('month')}
           data={data}
           range={range}
