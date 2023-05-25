@@ -11,23 +11,22 @@ const range: DateRange = {
   end: dayjs('2023-08-15'),
 };
 
+const testData: Schedule[] = [
+  { date: dayjs('2023-05-07'), status: 'busy' },
+  { date: dayjs('2023-05-08'), status: 'danger' },
+  { date: dayjs('2023-05-09'), status: '' },
+  { date: dayjs('2023-05-10'), status: 'busy' },
+  { date: dayjs('2023-05-11'), status: 'busy' },
+  { date: dayjs('2023-06-02'), status: 'busy' },
+  { date: dayjs('2023-06-06'), status: 'danger' },
+  { date: dayjs('2023-06-12'), status: 'danger' },
+];
+
 export const Register = () => {
   const [data, setData] = useState<Schedule[]>([]);
   const [selectedStatus, setSelectedStatus] = useState<string>('danger');
-
+  
   // 初回データセット
-  // 仮データ
-  const testData: Schedule[] = [
-    { date: dayjs('2023-05-07'), status: 'busy' },
-    { date: dayjs('2023-05-08'), status: 'danger' },
-    { date: dayjs('2023-05-09'), status: '' },
-    { date: dayjs('2023-05-10'), status: 'busy' },
-    { date: dayjs('2023-05-11'), status: 'busy' },
-    { date: dayjs('2023-06-02'), status: 'busy' },
-    { date: dayjs('2023-06-06'), status: 'danger' },
-    { date: dayjs('2023-06-12'), status: 'danger' },
-  ];
-
   useEffect(() => {
     setData(initData(range, testData));
   }, []);
