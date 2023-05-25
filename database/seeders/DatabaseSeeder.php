@@ -19,8 +19,8 @@ class DatabaseSeeder extends Seeder
       Event::create([
           'id' => 1,
           'name' => 'Test Event1',
-          'start_date' => '2021-01-26',
-          'end_date' => '2021-04-27',
+          'start_date' => '2021-01-15',
+          'end_date' => '2021-03-15',
           'hash' => hash('sha256','testhash1'),
       ]);
       Event::create([
@@ -59,7 +59,7 @@ class DatabaseSeeder extends Seeder
       ]);
       Schedule::create([
           'user_id' => 1,
-          'date' => '2021-01-27',
+          'date' => '2021-02-27',
           'event_id' => 1,
           'status' => 'potential',
       ]);
