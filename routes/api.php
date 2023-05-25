@@ -25,3 +25,5 @@ Route::post('events/create', [EventsController::class, 'createEvent']);
 
 Route::get('users', [UsersController::class, 'index']);
 Route::get('users/{event_id}', [UsersController::class, 'getUsersByEventId']);
+
+Route::get('schedules/{user_id}', [SchedulesController::class, 'getSchedulesByUserId']);
