@@ -28,7 +28,7 @@ class Controller extends BaseController
         );
     }
 
-    protected function ReturnData($data) {
+    protected function successData($data) {
         return response()->json(
                 $data,
                 200,

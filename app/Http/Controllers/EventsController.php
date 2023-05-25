@@ -12,12 +12,7 @@ class EventsController extends Controller
     //
     public function index(){
         $events = Event::all()->ToArray();
-        return response()->json(
-            $events, 
-            200, 
-            [], 
-            JSON_UNESCAPED_UNICODE
-        );
+        return $this->successData($events);
     }
 
     public function getEventById($id, Request $request){
@@ -27,12 +22,7 @@ class EventsController extends Controller
         if (!$this->isHashMatch($request->hash, $event->hash)) return $this->SendError('Hash is invalid.'));
         $owner_id = EventOwnerRel::where('event_id', $id)->first()->owner_id;
         $event['owner_id'] = $owner_id;
-        return response()->json(
-            $event, 
-            200, 
-            [], 
-            JSON_UNESCAPED_UNICODE
-        );
+        return $this->successData($event);
     }
 
     public function createEvent(Request $request){
@@ -69,11 +59,6 @@ class EventsController extends Controller
         $rel->owner_id = $owner->id;
         $rel->save();
 
-        return response()->json(
-            ['event_id' => $event->id, 'pass' => $pass],
-            200, 
-            [], 
-            JSON_UNESCAPED_UNICODE
-        );
+        return $this->successData(['event_id' => $event->id, 'pass' => $pass]);
     }
 }
