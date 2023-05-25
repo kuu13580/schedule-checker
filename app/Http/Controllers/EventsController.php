@@ -24,7 +24,7 @@ class EventsController extends Controller
         $event = Event::leftjoin('event_owner_rel', 'events.id', '=', 'event_owner_rel.event_id')
             ->find($id);
         // ハッシュ値チェック
-        if (!$this->isHashMatch($request->hash, $event->hash)) return $this->SendHashError();
+        if (!$this->isHashMatch($request->hash, $event->hash)) return $this->SendError('Hash is invalid.'));
         $owner_id = EventOwnerRel::where('event_id', $id)->first()->owner_id;
         $event['owner_id'] = $owner_id;
         return response()->json(
