@@ -31,12 +31,12 @@ export const Register = () => {
     setData(initData(range, testData));
   }, []);
 
-  const sortData = (data: Schedule[]) => {
-    return data.sort((a, b) => {
-      if (a.date.isAfter(b.date)) return 1;
-      return -1;
-    });
-  }
+  // const sortData = (data: Schedule[]) => {
+  //   return data.sort((a, b) => {
+  //     if (a.date.isAfter(b.date)) return 1;
+  //     return -1;
+  //   });
+  // }
 
   // rangeに対応するデータを初期化
   const initData = (range: DateRange, data: Schedule[]) => {
