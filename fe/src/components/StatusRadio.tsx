@@ -1,4 +1,4 @@
-import {Radio} from "@mui/material";
+import { Radio, RadioGroup } from "@mui/joy";
 
 export const StatusRadio = (props: {selectedStatus: string, setSelectedStatus: any}) => {
   const setSelectedStatus = props.setSelectedStatus;
@@ -7,24 +7,34 @@ export const StatusRadio = (props: {selectedStatus: string, setSelectedStatus: a
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setSelectedStatus(event.target.value);
   };
-  const controlProps = (item: string) => ({
-    checked: selectedStatus === item,
-    onChange: handleChange,
-    value: item,
-    name: 'status',
-    inputProps: { 'aria-label': item }
-  });
-  const controlSx = (color: string) => ({
-    color: color,
-    '&.Mui-checked': {
-      color: color
-    }
-  });
+
+  const statusArr = [
+    {status: 'unavailable', color: 'danger', label: 'unavailable'},
+    {status: 'potential', color: 'warning', label: 'potential'},
+    {status: 'available', color: 'success', label: 'available'},
+  ]
+
   return (
     <>
-      <Radio {...controlProps('unavailable')} sx={{...controlSx('red')}}/>unavailable
-      <Radio {...controlProps('potential')} sx={{...controlSx('#FFD700')}}/>potential
-      <Radio {...controlProps('available')} sx={{...controlSx('green')}}/>available
+      <RadioGroup 
+        name="status"
+        onChange={handleChange}
+        orientation="horizontal"
+      >
+        {statusArr.map((status) => {
+          const color = status.color as "danger" | "warning" | "success" | "primary" | "neutral" | "info" | undefined;
+          return (
+            <Radio 
+              checked={selectedStatus === status.status}
+              onChange={handleChange}
+              value={status.status}
+              label={status.label}
+              name='status'
+              variant='soft'
+              color={color}/>
+          );
+        })}
+      </RadioGroup>
     </>
   )
 }

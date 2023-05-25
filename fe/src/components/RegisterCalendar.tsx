@@ -23,7 +23,7 @@ export const RegisterCalendar = (props: { data: Schedule[], range: DateRange, se
       <Box
         sx={{
           width: "100%",
-          height: "100%",
+          height: "90%",
           backgroundColor: bgColor
         }}
       >
