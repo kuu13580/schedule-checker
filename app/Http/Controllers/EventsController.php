@@ -60,7 +60,7 @@ class EventsController extends Controller
         $owner = new User;
         $owner->event_id = $event->id;
         $owner->name = $attr['ownerName'];
-        $owner->password = $attr['password'];
+        $owner->password = password_hash($attr['password'], PASSWORD_DEFAULT);
         $owner->save();
 
         // EventOwnerRelの作成
