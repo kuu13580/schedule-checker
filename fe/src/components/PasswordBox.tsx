@@ -7,9 +7,17 @@ export const PasswordBox = () => {
 
   const handlePasswordChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const inputValue = event.target.value;
-    const lastDigit = inputValue.slice(-1);
+    console.log(inputValue);
+
+    // 数字以外の入力を無効とする
+    if (isNaN(Number(inputValue))) {
+      setPassword(inputValue.slice(0, -1));
+      return;
+    }
     
     setPassword(inputValue);
+
+    // 4桁入力されたら認証
     if (inputValue.length === 4) authenticate(inputValue);
   };
 
@@ -23,8 +31,8 @@ export const PasswordBox = () => {
       <TextField
         onChange={handlePasswordChange}
         value={password}
-        label="Password"
-        type="number"
+        label="パスワード(数字4桁)"
+        type="password"
         margin='normal'
         inputProps={{ maxLength: 4 }}
         />
