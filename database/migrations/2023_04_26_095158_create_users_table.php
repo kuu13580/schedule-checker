@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->bigInteger('event_id')->unsigned()->nullable(false);
             $table->string('name')->nullable(false);
-            $table->string('password')->nullable(true);
+            $table->string('password')->nullable(false);
             $table->timestamps();
         });
     }
