@@ -5,30 +5,47 @@ import dayjs from 'dayjs';
 import { DateRange } from "../models";
 import { useEffect, useState } from "react";
 import { Schedule } from "../models";
+import { useParams } from "react-router-dom";
+import axios from "axios";
 
 // 仮データ
-const range: DateRange = {
-  start: dayjs('2023-05-06'),
-  end: dayjs('2023-06-15'),
-};
 
-const testData: Schedule[] = [
-  { date: dayjs('2023-05-07'), status: 'unavailable' },
-  { date: dayjs('2023-05-08'), status: 'potential' },
-  { date: dayjs('2023-05-10'), status: 'unavailable' },
-  { date: dayjs('2023-05-11'), status: 'unavailable' },
-  { date: dayjs('2023-06-02'), status: 'unavailable' },
-  { date: dayjs('2023-06-06'), status: 'potential' },
-  { date: dayjs('2023-06-12'), status: 'potential' },
-];
+const userId = 1;
+const pass = '1234'
 
 export const Register = () => {
+  // パスパラメータ取得
+  const { eventId, hash } = useParams<{eventId: string, hash: string}>();
+
+  const [eventName, setEventName] = useState<string>('');
   const [data, setData] = useState<Schedule[]>([]);
   const [selectedStatus, setSelectedStatus] = useState<string>('unavailable');
+  const [dateRange, setDateRange] = useState<DateRange>({start: dayjs(), end: dayjs()});
 
   // 初回データセット
   useEffect(() => {
-    setData(initData(range, testData));
+    let tmpDateRange: DateRange;
+    // イベント全般のデータを取得
+    axios.get(`${process.env.REACT_APP_API_URL}/events/${eventId}/${hash}`)
+    .then((res) => {
+      setEventName(res.data['name']);
+      tmpDateRange = {
+        start: dayjs(res.data['start_date']),
+        end: dayjs(res.data['end_date']),
+      };
+      setDateRange(tmpDateRange);
+      return axios.post(`${process.env.REACT_APP_API_URL}/schedules/${userId}/${hash}`, { password: pass });
+    })
+    // ユーザーのスケジュールを取得
+    .then((res) => {
+      setData(initData(tmpDateRange, 
+        res.data.map((d: any) => {
+          return {
+            date: dayjs(d['date']),
+            status: d['status']
+          } as Schedule;
+        })));
+    });
   }, []);
 
   // const sortData = (data: Schedule[]) => {
@@ -69,7 +86,7 @@ export const Register = () => {
         <StatusRadio selectedStatus={selectedStatus} setSelectedStatus={setSelectedStatus} />
         <RegisterCalendar
           data={data}
-          range={range}
+          range={dateRange}
           setStatusByDate={setStatusByDate}
         />
         <Button variant="contained" color="primary">保存</Button>
