@@ -34,8 +34,8 @@ class EventsController extends Controller
             'password' => 'required|numeric|digits:4'
         ]);
 
-        // TODO: 日付の順序チェック
-        
+        // 日付の順序チェック
+        if (strtotime($attr['startDate']) > strtotime($attr['endDate'])) return $this->SendError('Start date is later than end date.');
 
         // Eventの作成
         $event = new Event;
