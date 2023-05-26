@@ -24,7 +24,8 @@ export const StatusRadio = (props: {selectedStatus: string, setSelectedStatus: a
         {statusArr.map((status) => {
           const color = status.color as "danger" | "warning" | "success" | "primary" | "neutral" | "info" | undefined;
           return (
-            <Radio 
+            <Radio
+              key={status.status}
               checked={selectedStatus === status.status}
               onChange={handleChange}
               value={status.status}
