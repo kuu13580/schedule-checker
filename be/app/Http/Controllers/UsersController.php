@@ -8,10 +8,10 @@ use App\Models\Event;
 
 class UsersController extends Controller
 {
-    public function getUsersByEventId($event_id, Request $request){
+    public function getUsersByEventId($event_id, $hash){
         $event = Event::find($event_id);
         // ハッシュ値チェック
-        if ($request->hash != $event->hash) return $this->SendError('Hash is invalid.');
+        if ($hash != $event->hash) return $this->SendError('Hash is invalid.');
         $users = User::where('event_id', $event_id)->get();
         return response()->json(
             $users, 

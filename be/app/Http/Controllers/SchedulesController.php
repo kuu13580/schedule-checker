@@ -5,11 +5,16 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Schedule;
 use App\Models\User;
+use App\Models\Event;
 
 class SchedulesController extends Controller
 {
-    public function getSchedulesByUserId($user_id, Request $request)
+    public function getSchedulesByUserId($user_id, $hash, Request $request)
     {
+        // ハッシュチェック
+        $event_id = User::where('id', $user_id)->first()->event_id;
+        if ($hash != Event::where('id', $event_id)->first()->hash) return $this->SendError('Hash is invalid.');
+
         $attr = $request->validate([
             'password' => 'required|numeric|digits:4'
         ]);
