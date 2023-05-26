@@ -21,14 +21,14 @@ class DatabaseSeeder extends Seeder
           'name' => 'Test Event1',
           'start_date' => '2021-01-15',
           'end_date' => '2021-03-15',
-          'hash' => hash('sha256','testhash1'),
+          'hash' => substr(hash('sha256','testhash1'), 0, 20),
       ]);
       Event::create([
           'id' => 2,
           'name' => 'Test Event2',
           'start_date' => '2021-03-26',
           'end_date' => '2021-05-27',
-          'hash' => hash('sha256','testhash2'),
+          'hash' => substr(hash('sha256','testhash2'), 0, 20),
       ]);
 
       User::create([

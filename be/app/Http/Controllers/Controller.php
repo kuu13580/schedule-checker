@@ -10,15 +10,6 @@ class Controller extends BaseController
 {
     use AuthorizesRequests, ValidatesRequests;
 
-    protected function isHashMatch($target, $hash){
-        $hashed_target = hash('sha256', $target);
-        if($hashed_target === $hash){
-            return true;
-        }else{
-            return false;
-        }
-    }
-
     protected function SendError($message) {
         return response()->json(
                 ['error_message' => $message],

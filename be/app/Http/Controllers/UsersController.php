@@ -22,7 +22,7 @@ class UsersController extends Controller
     public function getUsersByEventId($event_id, Request $request){
         $event = Event::find($event_id);
         // ハッシュ値チェック
-        if (!$this->isHashMatch($request->hash, $event->hash)) return $this->SendHashError();
+        if ($request->hash != $event->hash) return $this->SendError('Hash is invalid.');
         $users = User::where('event_id', $event_id)->get();
         return response()->json(
             $users, 

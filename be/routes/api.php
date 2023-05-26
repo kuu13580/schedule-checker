@@ -19,7 +19,7 @@ use App\Http\Controllers\UsersController;
 use App\Http\Controllers\SchedulesController;
 
 Route::get('events', [EventsController::class, 'index']);
-Route::get('events/{id}', [EventsController::class, 'getEventById']);
+Route::get('events/{id}/{hash}', [EventsController::class, 'getEventById']);
 Route::post('events/create', [EventsController::class, 'createEvent']);
 
 
