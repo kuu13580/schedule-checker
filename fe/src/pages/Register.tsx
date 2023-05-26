@@ -38,7 +38,7 @@ export const Register = () => {
     })
     // ユーザーのスケジュールを取得
     .then((res) => {
-      setData(initData(tmpDateRange, 
+      setData(initData(tmpDateRange,
         res.data.map((d: any) => {
           return {
             date: dayjs(d['date']),
@@ -80,6 +80,20 @@ export const Register = () => {
     });
   };
 
+  // データを送信
+  const saveData = () => {
+    const formatData = data.map((d) => {
+      return {
+        ...d,
+        date: d.date.format('YYYY-MM-DD'),
+      };
+    });
+    axios.post(`${process.env.REACT_APP_API_URL}/schedules/${userId}/${hash}/update`, { password: pass, scheduleArray: formatData })
+      .then((res) => {
+        console.log(res);
+      });
+  }
+
   return (
     <>
       <Container maxWidth='md'>
@@ -89,7 +103,7 @@ export const Register = () => {
           range={dateRange}
           setStatusByDate={setStatusByDate}
         />
-        <Button variant="contained" color="primary">保存</Button>
+        <Button variant="contained" color="primary" onClick={saveData}>保存</Button>
       </Container>
     </>
   );

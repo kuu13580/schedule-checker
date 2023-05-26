@@ -40,7 +40,16 @@ class SchedulesController extends Controller
         // パスワードを確認
         if (password_verify(User::where('id', $user_id)->first()->password, $attr['password'])) return $this->SendError('password is incorrect.');
 
-        // TODO:更新処理
-        return $this->successData($request->scheduleArray);
+        try {
+          foreach ($request->scheduleArray as $schedule) {
+              Schedule::updateOrCreate(
+                ['event_id' => $event_id, 'user_id' => $user_id, 'date' => $schedule['date']],
+                ['status' => $schedule['status']]
+              );
+          }
+        } catch (\Exception $e) {
+          return $this->SendError($e);
+        }
+        return $this->successData("update sccessful.");
     }
 }
