@@ -21,7 +21,7 @@ class Controller extends BaseController
 
     protected function SendError($message) {
         return response()->json(
-                ['message' => $message],
+                ['error_message' => $message],
                 400,
                 [],
                 JSON_UNESCAPED_UNICODE
