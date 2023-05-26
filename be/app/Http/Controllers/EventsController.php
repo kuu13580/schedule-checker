@@ -9,12 +9,6 @@ use App\Models\User;
 
 class EventsController extends Controller
 {
-    //
-    public function index(){
-        $events = Event::all()->ToArray();
-        return $this->successData($events);
-    }
-
     public function getEventById($id, $hash){
         $event = Event::leftjoin('event_owner_rel', 'events.id', '=', 'event_owner_rel.event_id')
             ->find($id);

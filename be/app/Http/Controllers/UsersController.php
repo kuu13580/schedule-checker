@@ -8,17 +8,6 @@ use App\Models\Event;
 
 class UsersController extends Controller
 {
-    //
-    public function index(){
-        $users = User::all();
-        return response()->json(
-            $users, 
-            200, 
-            [], 
-            JSON_UNESCAPED_UNICODE
-        );
-    }
-
     public function getUsersByEventId($event_id, Request $request){
         $event = Event::find($event_id);
         // ハッシュ値チェック
