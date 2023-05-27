@@ -31,8 +31,12 @@ class UsersController extends Controller
         ]);
 
         // パスワードを確認
-        if (!password_verify($attr['password'], User::where('id', $user_id)->first()->password)) return $this->SendError('password is incorrect.');
+        if (!password_verify($attr['password'], User::where('id', $user_id)->first()->password)) return $this->successData([
+            'result' => false
+        ]);
 
-        return $this->successData("authenticate sccessful.");
+        return $this->successData([
+            'result' => true
+        ]);
     }
 }

@@ -1,12 +1,15 @@
 import { TextField } from '@mui/material';
+import axios from 'axios';
 import { useState } from 'react';
-import { set } from 'react-hook-form';
+import { useParams } from 'react-router-dom';
 
-export const PasswordBox = (props: {handleAuthenticate: (password: string) => void}) => {
+export const PasswordBox = (props: {userId: string, handleAuthenticate: (password: string) => void}) => {
+  const userId = props.userId;
 
   const [password, setPassword] = useState<string>('');
   const [isError, setIsError] = useState<boolean>(false);
 
+  const { hash } = useParams<{hash: string}>();
   const handlePasswordChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const inputValue = event.target.value;
     console.log(inputValue);
@@ -24,11 +27,17 @@ export const PasswordBox = (props: {handleAuthenticate: (password: string) => vo
     if (inputValue.length === 4) authenticate(inputValue);
   };
 
+  // パスワード認証
   const authenticate = (password: string) => {
-    setIsError(true);
-    // パスワード認証
-    props.handleAuthenticate(password);
-    console.log("authenticate!");
+    axios.post(`${process.env.REACT_APP_API_URL}/users/${userId}/${hash}/authenticate`, { password: password })
+      .then((res) => {
+        if(res.data['result'] == true) {
+          props.handleAuthenticate(password);
+        } else {
+          setIsError(true);
+          setPassword('');
+        }
+      })
   }
 
   return (

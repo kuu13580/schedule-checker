@@ -12,7 +12,7 @@ import { set } from "react-hook-form";
 
 // 仮データ
 
-const userId = 1;
+const userId = "1";
 
 export const Register = () => {
   // パスパラメータ取得
@@ -133,7 +133,7 @@ export const Register = () => {
   return (
     <>
       <Container maxWidth='md'>
-        {!showContent && <PasswordBox handleAuthenticate={handleAuthenticate} />}
+        {!showContent && <PasswordBox userId={userId} handleAuthenticate={handleAuthenticate} />}
         {showContent &&
         <>
         {contextHolder}
