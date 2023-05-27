@@ -2,7 +2,7 @@ import { TextField } from '@mui/material';
 import { useState } from 'react';
 import { set } from 'react-hook-form';
 
-export const PasswordBox = () => {
+export const PasswordBox = (props: {handleAuthenticate: (password: string) => void}) => {
 
   const [password, setPassword] = useState<string>('');
   const [isError, setIsError] = useState<boolean>(false);
@@ -16,7 +16,7 @@ export const PasswordBox = () => {
       setPassword(inputValue.slice(0, -1));
       return;
     }
-    
+
     setPassword(inputValue);
     setIsError(false);
 
@@ -27,6 +27,7 @@ export const PasswordBox = () => {
   const authenticate = (password: string) => {
     setIsError(true);
     // パスワード認証
+    props.handleAuthenticate(password);
     console.log("authenticate!");
   }
 

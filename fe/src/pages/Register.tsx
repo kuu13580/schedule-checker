@@ -8,11 +8,11 @@ import { Schedule } from "../models";
 import { useParams } from "react-router-dom";
 import axios from "axios";
 import { message } from "antd";
+import { set } from "react-hook-form";
 
 // 仮データ
 
 const userId = 1;
-const pass = '1234'
 
 export const Register = () => {
   // パスパラメータ取得
@@ -25,6 +25,7 @@ export const Register = () => {
   const [dateRange, setDateRange] = useState<DateRange>({start: dayjs(), end: dayjs()});
   const [showLoading, setShowLoading] = useState<boolean>(false);
   const [showContent, setShowContent] = useState<boolean>(false);
+  const [password, setPassword] = useState<string>('');
 
   // メッセージ表示
   const error = (msg: string) => {
@@ -44,6 +45,7 @@ export const Register = () => {
 
   // 初回ローカルデータセット
   useEffect(() => {
+    if (!showContent) return;
     setShowLoading(true);
     let tmpDateRange: DateRange;
     // イベント全般のデータを取得
@@ -55,7 +57,7 @@ export const Register = () => {
         end: dayjs(res.data['end_date']),
       };
       setDateRange(tmpDateRange);
-      return axios.post(`${process.env.REACT_APP_API_URL}/schedules/${userId}/${hash}`, { password: pass });
+      return axios.post(`${process.env.REACT_APP_API_URL}/schedules/${userId}/${hash}`, { password: password });
     })
     // ユーザーのスケジュールを取得
     .then((res) => {
@@ -73,7 +75,7 @@ export const Register = () => {
     .finally(() => {
       setShowLoading(false);
     });
-  }, []);
+  }, [password]);
 
   // rangeに対応するローカルデータを初期化
   const initData = (range: DateRange, data: Schedule[]) => {
@@ -109,7 +111,7 @@ export const Register = () => {
         date: d.date.format('YYYY-MM-DD'),
       };
     });
-    axios.post(`${process.env.REACT_APP_API_URL}/schedules/${userId}/${hash}/update`, { password: pass, scheduleArray: formatData })
+    axios.post(`${process.env.REACT_APP_API_URL}/schedules/${userId}/${hash}/update`, { password: password, scheduleArray: formatData })
       .then((res) => {
         console.log(res);
       })
@@ -122,13 +124,19 @@ export const Register = () => {
       });
   }
 
+  // パスワード認証
+  const handleAuthenticate = (password: string) => {
+    setShowContent(true);
+    setPassword(password);
+  }
+
   return (
     <>
-      {contextHolder}
       <Container maxWidth='md'>
-        {!showContent && <PasswordBox />}
+        {!showContent && <PasswordBox handleAuthenticate={handleAuthenticate} />}
         {showContent &&
         <>
+        {contextHolder}
           <StatusRadio selectedStatus={selectedStatus} setSelectedStatus={setSelectedStatus} />
           <RegisterCalendar
             data={data}
