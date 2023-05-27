@@ -1,5 +1,5 @@
 import { Button, Container } from "@mui/material";
-import { LoadingBackdrop, RegisterCalendar, StatusRadio } from "../components";
+import { LoadingBackdrop, RegisterCalendar, StatusRadio, PasswordBox } from "../components";
 import { Dayjs } from "dayjs";
 import dayjs from 'dayjs';
 import { DateRange } from "../models";
@@ -24,6 +24,7 @@ export const Register = () => {
   const [selectedStatus, setSelectedStatus] = useState<string>('unavailable');
   const [dateRange, setDateRange] = useState<DateRange>({start: dayjs(), end: dayjs()});
   const [showLoading, setShowLoading] = useState<boolean>(false);
+  const [showContent, setShowContent] = useState<boolean>(false);
 
   // メッセージ表示
   const error = (msg: string) => {
@@ -73,13 +74,6 @@ export const Register = () => {
       setShowLoading(false);
     });
   }, []);
-
-  // const sortData = (data: Schedule[]) => {
-  //   return data.sort((a, b) => {
-  //     if (a.date.isAfter(b.date)) return 1;
-  //     return -1;
-  //   });
-  // }
 
   // rangeに対応するローカルデータを初期化
   const initData = (range: DateRange, data: Schedule[]) => {
@@ -132,14 +126,19 @@ export const Register = () => {
     <>
       {contextHolder}
       <Container maxWidth='md'>
-        <StatusRadio selectedStatus={selectedStatus} setSelectedStatus={setSelectedStatus} />
-        <RegisterCalendar
-          data={data}
-          range={dateRange}
-          setStatusByDate={setStatusByDate}
-        />
-        <Button variant="contained" color="primary" onClick={saveData}>保存</Button>
-        <LoadingBackdrop isShow={showLoading} />
+        {!showContent && <PasswordBox />}
+        {showContent &&
+        <>
+          <StatusRadio selectedStatus={selectedStatus} setSelectedStatus={setSelectedStatus} />
+          <RegisterCalendar
+            data={data}
+            range={dateRange}
+            setStatusByDate={setStatusByDate}
+          />
+          <Button variant="contained" color="primary" onClick={saveData}>保存</Button>
+          <LoadingBackdrop isShow={showLoading} />
+        </>
+        }
       </Container>
     </>
   );
