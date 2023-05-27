@@ -7,6 +7,7 @@ import { useEffect, useState } from "react";
 import { Schedule } from "../models";
 import { useParams } from "react-router-dom";
 import axios from "axios";
+import { message } from "antd";
 
 // 仮データ
 
@@ -17,11 +18,28 @@ export const Register = () => {
   // パスパラメータ取得
   const { eventId, hash } = useParams<{eventId: string, hash: string}>();
 
+  const [messageApi, contextHolder] = message.useMessage();
   const [eventName, setEventName] = useState<string>('');
   const [data, setData] = useState<Schedule[]>([]);
   const [selectedStatus, setSelectedStatus] = useState<string>('unavailable');
   const [dateRange, setDateRange] = useState<DateRange>({start: dayjs(), end: dayjs()});
   const [showLoading, setShowLoading] = useState<boolean>(false);
+
+  // メッセージ表示
+  const error = (msg: string) => {
+    messageApi.open({
+      type: 'error',
+      content: msg,
+      duration: 5,
+    });
+  }
+  const success = (msg: string) => {
+    messageApi.open({
+      type: 'success',
+      content: msg,
+      duration: 2,
+    });
+  }
 
   // 初回ローカルデータセット
   useEffect(() => {
@@ -47,6 +65,9 @@ export const Register = () => {
             status: d['status']
           } as Schedule;
         })));
+    })
+    .catch((err) => {
+      error('データの取得に失敗しました');
     })
     .finally(() => {
       setShowLoading(false);
@@ -98,13 +119,18 @@ export const Register = () => {
       .then((res) => {
         console.log(res);
       })
+      .catch((err) => {
+        error('データの保存に失敗しました');
+      })
       .finally(() => {
         setShowLoading(false);
+        success('データを保存しました');
       });
   }
 
   return (
     <>
+      {contextHolder}
       <Container maxWidth='md'>
         <StatusRadio selectedStatus={selectedStatus} setSelectedStatus={setSelectedStatus} />
         <RegisterCalendar
