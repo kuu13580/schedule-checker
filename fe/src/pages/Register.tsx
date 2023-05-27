@@ -16,7 +16,9 @@ export const Register = () => {
   return (
     <>
       <Container maxWidth='md'>
-        <UserSelector />
+        <UserSelector
+          resetView={() => {setPassword(''); setShowContent(false)}}
+          setUserId={setUserId}/>
         {!showContent && <PasswordBox userId={userId} handleAuthenticate={handleAuthenticate} />}
         {showContent && <RegisterCalendar password={password} /> }
       </Container>
