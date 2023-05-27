@@ -38,7 +38,7 @@ class SchedulesController extends Controller
         $schedules = Schedule::where('user_id', $user_id)->get();
 
         // パスワードを確認
-        if (password_verify($attr['password'], User::where('id', $user_id)->first()->password)) return $this->SendError('password is incorrect.');
+        if (!password_verify($attr['password'], User::where('id', $user_id)->first()->password)) return $this->SendError('password is incorrect.');
 
         try {
           foreach ($request->scheduleArray as $schedule) {
