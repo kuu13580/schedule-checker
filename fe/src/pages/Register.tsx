@@ -1,5 +1,5 @@
 import { Container } from "@mui/material";
-import { RegisterCalendar, PasswordBox } from "../components";
+import { RegisterCalendar, PasswordBox, UserSelector } from "../components";
 import { useState } from "react";
 
 export const Register = () => {
@@ -16,6 +16,7 @@ export const Register = () => {
   return (
     <>
       <Container maxWidth='md'>
+        <UserSelector />
         {!showContent && <PasswordBox userId={userId} handleAuthenticate={handleAuthenticate} />}
         {showContent && <RegisterCalendar password={password} /> }
       </Container>
