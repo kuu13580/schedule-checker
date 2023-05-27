@@ -23,7 +23,7 @@ export const Register = () => {
   const [dateRange, setDateRange] = useState<DateRange>({start: dayjs(), end: dayjs()});
   const [showLoading, setShowLoading] = useState<boolean>(false);
 
-  // 初回データセット
+  // 初回ローカルデータセット
   useEffect(() => {
     setShowLoading(true);
     let tmpDateRange: DateRange;
@@ -60,7 +60,7 @@ export const Register = () => {
   //   });
   // }
 
-  // rangeに対応するデータを初期化
+  // rangeに対応するローカルデータを初期化
   const initData = (range: DateRange, data: Schedule[]) => {
     const numDays = range.end.diff(range.start, 'day') + 1;
     return Array.from({ length: numDays }, (_, i) => {
@@ -73,7 +73,7 @@ export const Register = () => {
     });
   }
 
-  // idに対応するデータを更新
+  // idに対応するローカルデータを更新
   const setStatusByDate = (date: Dayjs) => {
     setData((prev) => {
       return prev.map((d) => {
