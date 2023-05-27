@@ -22,6 +22,7 @@ Route::get('events/{id}/{hash}', [EventsController::class, 'getEventById']);
 Route::post('events/create', [EventsController::class, 'createEvent']);
 
 Route::get('users/{event_id}/{hash}', [UsersController::class, 'getUsersByEventId']);
+Route::post('users/{user_id}/{hash}/authenticate', [UsersController::class, 'authenticate']);
 
 Route::post('schedules/{user_id}/{hash}', [SchedulesController::class, 'getSchedulesByUserId']);
 Route::post('schedules/{user_id}/{hash}/update', [SchedulesController::class, 'updateSchedulesByUserId']);
