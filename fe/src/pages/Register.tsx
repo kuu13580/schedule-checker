@@ -1,5 +1,5 @@
 import { Button, Container } from "@mui/material";
-import { RegisterCalendar, StatusRadio } from "../components";
+import { LoadingBackdrop, RegisterCalendar, StatusRadio } from "../components";
 import { Dayjs } from "dayjs";
 import dayjs from 'dayjs';
 import { DateRange } from "../models";
@@ -21,9 +21,11 @@ export const Register = () => {
   const [data, setData] = useState<Schedule[]>([]);
   const [selectedStatus, setSelectedStatus] = useState<string>('unavailable');
   const [dateRange, setDateRange] = useState<DateRange>({start: dayjs(), end: dayjs()});
+  const [showLoading, setShowLoading] = useState<boolean>(false);
 
   // 初回データセット
   useEffect(() => {
+    setShowLoading(true);
     let tmpDateRange: DateRange;
     // イベント全般のデータを取得
     axios.get(`${process.env.REACT_APP_API_URL}/events/${eventId}/${hash}`)
@@ -45,6 +47,9 @@ export const Register = () => {
             status: d['status']
           } as Schedule;
         })));
+    })
+    .finally(() => {
+      setShowLoading(false);
     });
   }, []);
 
@@ -82,6 +87,7 @@ export const Register = () => {
 
   // データを送信
   const saveData = () => {
+    setShowLoading(true);
     const formatData = data.map((d) => {
       return {
         ...d,
@@ -91,6 +97,9 @@ export const Register = () => {
     axios.post(`${process.env.REACT_APP_API_URL}/schedules/${userId}/${hash}/update`, { password: pass, scheduleArray: formatData })
       .then((res) => {
         console.log(res);
+      })
+      .finally(() => {
+        setShowLoading(false);
       });
   }
 
@@ -104,6 +113,7 @@ export const Register = () => {
           setStatusByDate={setStatusByDate}
         />
         <Button variant="contained" color="primary" onClick={saveData}>保存</Button>
+        <LoadingBackdrop isShow={showLoading} />
       </Container>
     </>
   );
