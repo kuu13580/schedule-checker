@@ -12,7 +12,6 @@ export const PasswordBox = (props: {userId: string, handleAuthenticate: (passwor
   const { hash } = useParams<{hash: string}>();
   const handlePasswordChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const inputValue = event.target.value;
-    console.log(inputValue);
 
     // 数字以外の入力を無効とする
     if (isNaN(Number(inputValue))) {

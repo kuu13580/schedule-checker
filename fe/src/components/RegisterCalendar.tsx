@@ -10,11 +10,9 @@ import { useParams } from "react-router-dom";
 import axios from "axios";
 import { LoadingBackdrop, StatusRadio } from "./";
 
-// 仮データ
-const userId = "1";
-
-export const RegisterCalendar = (props: {password: string}) => {
+export const RegisterCalendar = (props: {userId: string, password: string}) => {
   const password = props.password;
+  const userId = props.userId;
 
   // パスパラメータ取得
   const { eventId, hash } = useParams<{eventId: string, hash: string}>();
@@ -116,7 +114,6 @@ export const RegisterCalendar = (props: {password: string}) => {
     });
     axios.post(`${process.env.REACT_APP_API_URL}/schedules/${userId}/${hash}/update`, { password: password, scheduleArray: formatData })
       .then((res) => {
-        console.log(res);
       })
       .catch((err) => {
         error('データの保存に失敗しました');

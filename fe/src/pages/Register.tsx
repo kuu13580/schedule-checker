@@ -20,7 +20,7 @@ export const Register = () => {
           resetView={() => {setPassword(''); setShowContent(false)}}
           setUserId={setUserId}/>
         {!showContent && <PasswordBox userId={userId} handleAuthenticate={handleAuthenticate} />}
-        {showContent && <RegisterCalendar password={password} /> }
+        {showContent && <RegisterCalendar userId={userId} password={password} /> }
       </Container>
     </>
   );
