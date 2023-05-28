@@ -43,6 +43,10 @@ export const UserSelector = (props: {setPassword: React.Dispatch<React.SetStateA
   }, []);
 
   const handleChange = (event: SelectChangeEvent) => {
+    if (event.target.value === 'new') {
+      setShowContent('AddUser');
+      return;
+    }
     setSelectedUser(event.target.value);
     setUserId(event.target.value);
     setPassword('');
