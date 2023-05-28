@@ -39,6 +39,7 @@ export const UserSelector = (props: {setPassword: React.Dispatch<React.SetStateA
       .finally(() => {
         setShowLoading(false);
       });
+      // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const handleChange = (event: SelectChangeEvent) => {
