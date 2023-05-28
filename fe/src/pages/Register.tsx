@@ -15,7 +15,7 @@ export const Register = () => {
 
   return (
     <>
-      <Container maxWidth='md'>
+      <Container maxWidth='md' sx={{my: 2}}>
         <UserSelector
           resetView={() => {setPassword(''); setShowContent(false)}}
           setUserId={setUserId}/>
