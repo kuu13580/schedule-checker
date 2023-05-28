@@ -17,10 +17,11 @@ export const Register = () => {
     <>
       <Container maxWidth='md' sx={{my: 2}}>
         <UserSelector
-          resetView={() => {setPassword(''); setShowContent("PasswordBox")}}
-          setUserId={setUserId}/>
-        {showContent == "PasswordBox" && <PasswordBox userId={userId} handleAuthenticate={handleAuthenticate} />}
-        {showContent == "RegisterCalendar" && <RegisterCalendar userId={userId} password={password} /> }
+          setPassword={setPassword}
+          setUserId={setUserId}
+          setShowContent={setShowContent}/>
+        {showContent === "PasswordBox" && <PasswordBox userId={userId} handleAuthenticate={handleAuthenticate} />}
+        {showContent === "RegisterCalendar" && <RegisterCalendar userId={userId} password={password} /> }
       </Container>
     </>
   );

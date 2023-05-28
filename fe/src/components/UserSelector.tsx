@@ -6,9 +6,10 @@ import { message } from "antd";
 import { LoadingBackdrop } from "./";
 import { FormControl, InputLabel, MenuItem, Select, SelectChangeEvent } from "@mui/material";
 
-export const UserSelector = (props: {resetView: () => void, setUserId: React.Dispatch<React.SetStateAction<string>>}) => {
-  const resetView = props.resetView;
+export const UserSelector = (props: {setPassword: React.Dispatch<React.SetStateAction<string>>, setUserId: React.Dispatch<React.SetStateAction<string>>, setShowContent: React.Dispatch<React.SetStateAction<string>>}) => {
+  const setPassword = props.setPassword;
   const setUserId = props.setUserId;
+  const setShowContent = props.setShowContent;
 
   const { eventId, hash } = useParams<{eventId: string, hash: string}>();
 
@@ -43,7 +44,8 @@ export const UserSelector = (props: {resetView: () => void, setUserId: React.Dis
   const handleChange = (event: SelectChangeEvent) => {
     setSelectedUser(event.target.value);
     setUserId(event.target.value);
-    resetView();
+    setPassword('');
+    setShowContent('PasswordBox');
   };
 
   return (
