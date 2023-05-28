@@ -61,6 +61,7 @@ export const UserSelector = (props: {resetView: () => void, setUserId: React.Dis
           {users.map((user) => (
             <MenuItem key={user.id} value={user.id}>{user.name}</MenuItem>
           ))}
+          <MenuItem value="new">ユーザー追加</MenuItem>
         </Select>
       </FormControl>
       <LoadingBackdrop isShow={showLoading} />
