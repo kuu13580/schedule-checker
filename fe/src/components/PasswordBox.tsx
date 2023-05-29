@@ -30,7 +30,7 @@ export const PasswordBox = (props: {userId: string, handleAuthenticate: (passwor
   const authenticate = (password: string) => {
     axios.post(`${process.env.REACT_APP_API_URL}/users/${userId}/${hash}/authenticate`, { password: password })
       .then((res) => {
-        if(res.data['result'] == true) {
+        if(res.data['result'] === true) {
           props.handleAuthenticate(password);
         } else {
           setIsError(true);
