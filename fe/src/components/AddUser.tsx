@@ -1,8 +1,27 @@
 import { TextField, Grid, Button } from '@mui/material';
-import { useEffect } from 'react';
-import { useForm } from 'react-hook-form';
+import axios from 'axios';
+import { set, useForm } from 'react-hook-form';
+import { useParams } from 'react-router-dom';
+import { message } from 'antd';
 
-export const AddUser = () => {
+export const AddUser = (props: {setPassword: React.Dispatch<React.SetStateAction<string>>, setUserId: React.Dispatch<React.SetStateAction<string>>, setShowContent: React.Dispatch<React.SetStateAction<string>>}) => {
+  const setPassword = props.setPassword;
+  const setUserId = props.setUserId;
+  const setShowContent = props.setShowContent;
+
+  // パスクエリ取得
+  const { hash, event_id } = useParams<{hash: string, event_id: string}>();
+
+  const [messageApi, contextHolder] = message.useMessage();
+
+  // エラーメッセージ
+  const error = (msg: string) => {
+    messageApi.open({
+      type: 'error',
+      content: msg,
+      duration: 5,
+    });
+  }
 
   const { register, watch, handleSubmit, formState: { errors } } = useForm(
     {
@@ -15,11 +34,21 @@ export const AddUser = () => {
   );
 
   const onSubmit = (data: any) => {
-    console.log(data);
+    // ユーザー登録処理
+    axios.post(`${process.env.REACT_APP_API_URL}/users/${event_id}/${hash}/create`, data)
+      .then(res => {
+        setUserId(res.data['user_id']);
+        setPassword(watch('password'));
+        setShowContent('RegisterCalendar');
+      }).catch(err => {
+        error("ユーザー登録に失敗しました");
+      });
+
   }
 
   return (
     <>
+      {contextHolder}
       <Grid container spacing={1}>
         <Grid item xs={12}>
           <TextField
