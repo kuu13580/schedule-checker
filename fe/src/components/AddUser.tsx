@@ -22,6 +22,13 @@ export const AddUser = (props: {setPassword: React.Dispatch<React.SetStateAction
       duration: 5,
     });
   }
+  const success = (msg: string) => {
+    messageApi.open({
+      type: 'success',
+      content: msg,
+      duration: 2,
+    });
+  }
 
   const { register, watch, handleSubmit, formState: { errors } } = useForm(
     {
@@ -40,6 +47,7 @@ export const AddUser = (props: {setPassword: React.Dispatch<React.SetStateAction
         setUserId(res.data['user_id']);
         setPassword(watch('password'));
         setShowContent('PasswordBox');
+        success("ユーザー登録が完了しました\nパスワードを入力してください");
       }).catch(err => {
         error("ユーザー登録に失敗しました");
       });
