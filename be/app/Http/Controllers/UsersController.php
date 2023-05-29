@@ -34,4 +34,27 @@ class UsersController extends Controller
             'result' => true
         ]);
     }
+
+    public function createUser($event_id, $hash, Request $request){
+        $event = Event::find($event_id);
+        // ハッシュ値チェック
+        if ($hash != $event->hash) return $this->SendError('Hash is invalid.');
+
+        // リクエストボディのバリデーション
+        $attr = $request->validate([
+            'name' => 'required|string|max:10',
+            'password' => 'required|numeric|digits:4'
+        ]);
+
+        // ユーザーの作成
+        $user = User::create([
+            'name' => $attr['name'],
+            'password' => password_hash($attr['password'], PASSWORD_DEFAULT),
+            'event_id' => $event_id
+        ]);
+
+        return $this->successData([
+            'id' => $user->id
+        ]);
+    }
 }
