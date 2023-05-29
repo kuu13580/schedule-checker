@@ -47,11 +47,11 @@ class UsersController extends Controller
         ]);
 
         // ユーザーの作成
-        $user = User::create([
-            'name' => $attr['userName'],
-            'password' => password_hash($attr['password'], PASSWORD_DEFAULT),
-            'event_id' => $event_id
-        ]);
+        $user = new User;
+        $user->name = $attr['userName'];
+        $user->password = password_hash($attr['password'], PASSWORD_DEFAULT);
+        $user->event_id = $event_id;
+        $user->save();
 
         return $this->successData([
             'id' => $user->id
