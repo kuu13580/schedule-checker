@@ -31,19 +31,19 @@ export const Create = () => {
   }
 
   // 日付関連
-  const [dateError, setDateError] = useState<boolean>(false);
+  const [dateError, setDateError] = useState<string | null>(null);
   const startDate = watch('startDate');
   const endDate = watch('endDate');
 
   useEffect(() => {
     if (startDate && endDate) {
       if (startDate.isAfter(endDate)) {
-        setDateError(true);
+        setDateError("orderError");
       } else {
-        setDateError(false);
+        setDateError(null);
       }
     } else {
-      setDateError(false);
+      setDateError("requiredError");
     }
   }, [startDate, endDate])
 
@@ -100,7 +100,7 @@ export const Create = () => {
                   format="YYYY/M/D"
                   slotProps={{
                     textField: {
-                      helperText: dateError && '日付が前後しています',
+                      helperText: dateError === 'orderError' ? '日付が前後しています' : dateError === 'requiredError' ? '日付を入力してください' : '',
                     },
                   }}
                 />
