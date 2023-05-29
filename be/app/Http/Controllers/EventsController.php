@@ -36,8 +36,7 @@ class EventsController extends Controller
         $event->name = $attr['name'];
         $event->start_date = $attr['startDate'];
         $event->end_date = $attr['endDate'];
-        $pass = substr(hash('sha256', $attr['name'].date('Y-m-d-H-i-s')), 0, 5);
-        $event->hash = hash('sha256', $pass);
+        $event->hash = substr(hash('sha256', $attr['name'].date('Y-m-d-H-i-s')), 0, 20);
         $event->save();
 
         // ownerユーザーの作成
@@ -53,6 +52,6 @@ class EventsController extends Controller
         $rel->owner_id = $owner->id;
         $rel->save();
 
-        return $this->successData(['event_id' => $event->id, 'pass' => $pass]);
+        return $this->successData(['event_id' => $event->id, 'pass' => $event->hash]);
     }
 }
