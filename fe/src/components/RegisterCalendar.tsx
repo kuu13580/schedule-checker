@@ -10,7 +10,7 @@ import { useParams } from "react-router-dom";
 import axios from "axios";
 import { LoadingBackdrop, StatusRadio } from "./";
 
-export const RegisterCalendar = (props: {userId: string | undefined, password: string}) => {
+export const RegisterCalendar = (props: {userId: string, password: string}) => {
   const password = props.password;
   const userId = props.userId;
 

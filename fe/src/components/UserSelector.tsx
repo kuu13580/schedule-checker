@@ -6,15 +6,15 @@ import { message } from "antd";
 import { LoadingBackdrop } from "./";
 import { FormControl, InputLabel, MenuItem, Select, SelectChangeEvent } from "@mui/material";
 
-export const UserSelector = (props: {selectedUserId: string | undefined, setPassword: React.Dispatch<React.SetStateAction<string>>, setUserId: React.Dispatch<React.SetStateAction<string | undefined>>, setShowContent: React.Dispatch<React.SetStateAction<string>>}) => {
+export const UserSelector = (props: {setPassword: React.Dispatch<React.SetStateAction<string>>, setUserId: React.Dispatch<React.SetStateAction<string>>, setShowContent: React.Dispatch<React.SetStateAction<string>>}) => {
   const setPassword = props.setPassword;
-  const setShowContent = props.setShowContent;
-  const selectedUserId = props.selectedUserId;
   const setUserId = props.setUserId;
+  const setShowContent = props.setShowContent;
 
   const { eventId, hash } = useParams<{eventId: string, hash: string}>();
 
   const [users, setUsers] = useState<User[]>([]);
+  const [selectedUser, setSelectedUser] = useState<string>('');
   const [showLoading, setShowLoading] = useState<boolean>(false);
   const [messageApi, contextHolder] = message.useMessage();
 
@@ -40,10 +40,10 @@ export const UserSelector = (props: {selectedUserId: string | undefined, setPass
         setShowLoading(false);
       });
       // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [selectedUserId]);
+  }, []);
 
   const handleChange = (event: SelectChangeEvent) => {
-    setUserId(event.target.value);
+    setSelectedUser(event.target.value);
     if (event.target.value === 'new') {
       setShowContent('AddUser');
       return;
@@ -62,7 +62,7 @@ export const UserSelector = (props: {selectedUserId: string | undefined, setPass
           labelId="select-label"
           id="select-label"
           label="ユーザー"
-          value={selectedUserId}
+          value={selectedUser}
           onChange={handleChange}
         >
           {users.map((user) => (
