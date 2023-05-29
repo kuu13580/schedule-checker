@@ -8,7 +8,7 @@ import dayjs from "dayjs";
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import axios from "axios";
-import { LoadingBackdrop, StatusRadio } from "./";
+import { DeleteUserButton, LoadingBackdrop, StatusRadio } from "./";
 
 export const RegisterCalendar = (props: {userId: string, password: string}) => {
   const password = props.password;
@@ -162,6 +162,7 @@ export const RegisterCalendar = (props: {userId: string, password: string}) => {
       </ConfigProvider>
       <Button variant="contained" color="primary" onClick={saveData}>保存</Button>
       <LoadingBackdrop isShow={showLoading} />
+      <DeleteUserButton userId={userId} password={password} />
     </>
   );
 };
