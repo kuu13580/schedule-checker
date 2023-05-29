@@ -17,7 +17,7 @@ export const RegisterCalendar = (props: {userId: string, password: string}) => {
   // パスパラメータ取得
   const { eventId, hash } = useParams<{eventId: string, hash: string}>();
 
-  const [eventName, setEventName] = useState<string>('');
+  // const [eventName, setEventName] = useState<string>('');
   const [selectedValue, setSelectedValue] = useState<Dayjs>(dayjs());
   const [data, setData] = useState<Schedule[]>([]);
   const [selectedStatus, setSelectedStatus] = useState<string>('unavailable');
@@ -52,7 +52,7 @@ export const RegisterCalendar = (props: {userId: string, password: string}) => {
     // イベント全般のデータを取得
     axios.get(`${process.env.REACT_APP_API_URL}/events/${eventId}/${hash}`)
     .then((res) => {
-      setEventName(res.data['name']);
+      // setEventName(res.data['name']);
       tmpDateRange = {
         start: dayjs(res.data['start_date']),
         end: dayjs(res.data['end_date']),
