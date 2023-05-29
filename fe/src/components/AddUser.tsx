@@ -1,6 +1,6 @@
 import { TextField, Grid, Button } from '@mui/material';
 import axios from 'axios';
-import { set, useForm } from 'react-hook-form';
+import { useForm } from 'react-hook-form';
 import { useParams } from 'react-router-dom';
 import { message } from 'antd';
 
@@ -85,7 +85,7 @@ export const AddUser = (props: {setPassword: React.Dispatch<React.SetStateAction
             error={"passwordConfirm" in errors}
           />
         </Grid>
-        <Grid item xs={12}> 
+        <Grid item xs={12}>
           <Button variant="contained" onClick={handleSubmit(onSubmit)}>追加</Button>
         </Grid>
       </Grid>
