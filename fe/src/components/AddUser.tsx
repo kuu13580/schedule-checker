@@ -10,7 +10,7 @@ export const AddUser = (props: {setPassword: React.Dispatch<React.SetStateAction
   const setShowContent = props.setShowContent;
 
   // パスクエリ取得
-  const { hash, event_id } = useParams<{hash: string, event_id: string}>();
+  const { hash, eventId } = useParams<{hash: string, eventId: string}>();
 
   const [messageApi, contextHolder] = message.useMessage();
 
@@ -35,7 +35,7 @@ export const AddUser = (props: {setPassword: React.Dispatch<React.SetStateAction
 
   const onSubmit = (data: any) => {
     // ユーザー登録処理
-    axios.post(`${process.env.REACT_APP_API_URL}/users/${event_id}/${hash}/create`, data)
+    axios.post(`${process.env.REACT_APP_API_URL}/users/${eventId}/${hash}/create`, data)
       .then(res => {
         setUserId(res.data['user_id']);
         setPassword(watch('password'));
