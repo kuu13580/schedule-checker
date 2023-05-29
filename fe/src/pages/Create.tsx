@@ -41,7 +41,6 @@ export const Create = () => {
   const onSubmit = (data: any) => {
     if (dateError) return;
     console.log({...data, startDate: startDate?.format('YYYY-MM-DD'), endDate: endDate?.format('YYYY-MM-DD')});
-    // TODO: API通信
     axios.post(process.env.REACT_APP_API_URL + '/events/create', {...data, startDate: startDate?.format('YYYY-MM-DD'), endDate: endDate?.format('YYYY-MM-DD')})
       .then(res => {
         if (res.status !== 200) {
@@ -66,6 +65,7 @@ export const Create = () => {
           required
           label="イベント名(最大20文字)"
           variant="outlined"
+          inputProps={{ maxLength: 20 }}
           {...register('name', { required: true, maxLength: 20 })}
           error={"name" in errors} />
         <LocalizationProvider dateAdapter={AdapterDayjs} adapterLocale={ja}>
