@@ -5,7 +5,7 @@ import { useState } from "react";
 export const Register = () => {
   const [showContent, setShowContent] = useState<string>('PasswordBox');
   const [password, setPassword] = useState<string>('');
-  const [userId, setUserId] = useState<string>('1');
+  const [userId, setUserId] = useState<string>('');
 
   // パスワード認証
   const handleAuthenticate = (password: string) => {
