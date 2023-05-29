@@ -7,6 +7,7 @@ import ja from 'dayjs/locale/ja';
 import { EventForm } from "../models";
 import { useEffect, useState } from "react";
 import axios from "axios";
+import { message } from "antd";
 
 
 export const Create = () => {
@@ -19,6 +20,15 @@ export const Create = () => {
       password: '',
     }
   })
+
+  const [messageApi, contextHolder] = message.useMessage();
+  const error = (msg: string) => {
+    messageApi.open({
+      type: 'error',
+      content: msg,
+      duration: 5,
+    });
+  }
 
   // 日付関連
   const [dateError, setDateError] = useState<boolean>(false);
@@ -48,13 +58,14 @@ export const Create = () => {
         const hash = res.data["pass"];
         window.location.href = `/register/${eventId}/${hash}`;
       }).catch(err => {
-
+        error("イベント作成に失敗しました");
       }
     );
   }
 
   return (
     <Container maxWidth={'lg'}>
+      {contextHolder}
         <Grid container spacing={2}>
           <Grid item xs={12}>
             <TextField
