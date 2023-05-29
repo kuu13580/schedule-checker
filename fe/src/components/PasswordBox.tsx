@@ -3,7 +3,7 @@ import axios from 'axios';
 import { useState } from 'react';
 import { useParams } from 'react-router-dom';
 
-export const PasswordBox = (props: {userId: string, handleAuthenticate: (password: string) => void}) => {
+export const PasswordBox = (props: {userId: string | undefined, handleAuthenticate: (password: string) => void}) => {
   const userId = props.userId;
 
   const [password, setPassword] = useState<string>('');

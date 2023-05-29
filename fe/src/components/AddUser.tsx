@@ -4,7 +4,7 @@ import { useForm } from 'react-hook-form';
 import { useParams } from 'react-router-dom';
 import { message } from 'antd';
 
-export const AddUser = (props: {setPassword: React.Dispatch<React.SetStateAction<string>>, setUserId: React.Dispatch<React.SetStateAction<string>>, setShowContent: React.Dispatch<React.SetStateAction<string>>}) => {
+export const AddUser = (props: {setPassword: React.Dispatch<React.SetStateAction<string>>, setUserId: React.Dispatch<React.SetStateAction<string | undefined>>, setShowContent: React.Dispatch<React.SetStateAction<string>>}) => {
   const setPassword = props.setPassword;
   const setUserId = props.setUserId;
   const setShowContent = props.setShowContent;
@@ -39,7 +39,7 @@ export const AddUser = (props: {setPassword: React.Dispatch<React.SetStateAction
       .then(res => {
         setUserId(res.data['user_id']);
         setPassword(watch('password'));
-        setShowContent('RegisterCalendar');
+        setShowContent('PasswordBox');
       }).catch(err => {
         error("ユーザー登録に失敗しました");
       });

@@ -5,7 +5,7 @@ import { useState } from "react";
 export const Register = () => {
   const [showContent, setShowContent] = useState<string>('PasswordBox');
   const [password, setPassword] = useState<string>('');
-  const [userId, setUserId] = useState<string>('1');
+  const [userId, setUserId] = useState<string | undefined>(undefined);
 
   // パスワード認証
   const handleAuthenticate = (password: string) => {
@@ -17,6 +17,7 @@ export const Register = () => {
     <>
       <Container maxWidth='md' sx={{my: 2}}>
         <UserSelector
+          selectedUserId={userId}
           setPassword={setPassword}
           setUserId={setUserId}
           setShowContent={setShowContent}/>
