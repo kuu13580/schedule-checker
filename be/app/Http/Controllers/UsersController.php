@@ -42,13 +42,13 @@ class UsersController extends Controller
 
         // リクエストボディのバリデーション
         $attr = $request->validate([
-            'name' => 'required|string|max:10',
+            'userName' => 'required|string|max:10',
             'password' => 'required|numeric|digits:4'
         ]);
 
         // ユーザーの作成
         $user = User::create([
-            'name' => $attr['name'],
+            'name' => $attr['userName'],
             'password' => password_hash($attr['password'], PASSWORD_DEFAULT),
             'event_id' => $event_id
         ]);
