@@ -47,7 +47,7 @@ export const AddUser = (props: {setPassword: React.Dispatch<React.SetStateAction
         setUserId(res.data['user_id']);
         setPassword(watch('password'));
         setShowContent('PasswordBox');
-        success("ユーザー登録が完了しました\nパスワードを入力してください");
+        window.location.href=`/register/${eventId}/${hash}?user=${res.data['user_id']}`;
       }).catch(err => {
         error("ユーザー登録に失敗しました");
       });
