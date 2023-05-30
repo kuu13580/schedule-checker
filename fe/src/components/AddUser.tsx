@@ -4,10 +4,7 @@ import { useForm } from 'react-hook-form';
 import { useParams } from 'react-router-dom';
 import { message } from 'antd';
 
-export const AddUser = (props: {setPassword: React.Dispatch<React.SetStateAction<string>>, setUserId: React.Dispatch<React.SetStateAction<string>>, setShowContent: React.Dispatch<React.SetStateAction<string>>}) => {
-  const setPassword = props.setPassword;
-  const setUserId = props.setUserId;
-  const setShowContent = props.setShowContent;
+export const AddUser = () => {
 
   // パスクエリ取得
   const { hash, eventId } = useParams<{hash: string, eventId: string}>();
@@ -20,13 +17,6 @@ export const AddUser = (props: {setPassword: React.Dispatch<React.SetStateAction
       type: 'error',
       content: msg,
       duration: 5,
-    });
-  }
-  const success = (msg: string) => {
-    messageApi.open({
-      type: 'success',
-      content: msg,
-      duration: 2,
     });
   }
 
@@ -44,10 +34,7 @@ export const AddUser = (props: {setPassword: React.Dispatch<React.SetStateAction
     // ユーザー登録処理
     axios.post(`${process.env.REACT_APP_API_URL}/users/${eventId}/${hash}/create`, data)
       .then(res => {
-        setUserId(res.data['user_id']);
-        setPassword(watch('password'));
-        setShowContent('PasswordBox');
-        window.location.href=`/register/${eventId}/${hash}?user=${res.data['user_id']}`;
+        window.location.href=`/register/${eventId}/${hash}?user=${res.data['id']}`;
       }).catch(err => {
         error("ユーザー登録に失敗しました");
       });
