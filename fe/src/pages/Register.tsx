@@ -10,11 +10,13 @@ export const Register = () => {
   const [userId, setUserId] = useState<string>('');
 
   const [messageApi, contextHolder] = message.useMessage();
-  const success = (msg: string) => {
+
+  // バナー表示
+  const topBanner = (type: "error" | "success", msg: string) => {
     messageApi.open({
-      type: 'success',
+      type: type,
       content: msg,
-      duration: 2,
+      duration: type === "error" ? 5 : type === "success" ? 2 : 3,
     });
   }
 
@@ -25,7 +27,7 @@ export const Register = () => {
     if (userIdFromQuery) {
       setUserId(userIdFromQuery);
       setSearchParams({});
-      success("ユーザー登録が完了しました");
+      topBanner("success", "ユーザー登録が完了しました");
     }
   }, []);
 
@@ -43,7 +45,8 @@ export const Register = () => {
           userId={userId}
           setPassword={setPassword}
           setUserId={setUserId}
-          setShowContent={setShowContent}/>
+          setShowContent={setShowContent}
+          topBanner={topBanner}/>
         {showContent === "PasswordBox" && <PasswordBox userId={userId} handleAuthenticate={handleAuthenticate} />}
         {showContent === "RegisterCalendar" && <RegisterCalendar userId={userId} password={password} /> }
         {showContent === "AddUser" && <AddUser />}
