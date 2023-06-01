@@ -48,7 +48,7 @@ export const Register = () => {
           setShowContent={setShowContent}
           topBanner={topBanner}/>
         {showContent === "PasswordBox" && <PasswordBox userId={userId} handleAuthenticate={handleAuthenticate} />}
-        {showContent === "RegisterCalendar" && <RegisterCalendar userId={userId} password={password} /> }
+        {showContent === "RegisterCalendar" && <RegisterCalendar userId={userId} password={password} topBanner={topBanner}/> }
         {showContent === "AddUser" && <AddUser topBanner={topBanner}/>}
       </Container>
     </>
