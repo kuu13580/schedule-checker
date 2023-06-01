@@ -22,11 +22,12 @@ export const Create = () => {
   })
 
   const [messageApi, contextHolder] = message.useMessage();
-  const error = (msg: string) => {
+  // バナー表示
+  const topBanner = (type: "error" | "success", msg: string) => {
     messageApi.open({
-      type: 'error',
+      type: type,
       content: msg,
-      duration: 5,
+      duration: type === "error" ? 5 : type === "success" ? 2 : 3,
     });
   }
 
@@ -58,7 +59,7 @@ export const Create = () => {
         const hash = res.data["pass"];
         window.location.href = `/register/${eventId}/${hash}`;
       }).catch(err => {
-        error("イベント作成に失敗しました");
+        topBanner("error", "イベント作成に失敗しました");
       }
     );
   }
