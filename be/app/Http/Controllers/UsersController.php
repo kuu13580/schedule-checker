@@ -48,7 +48,7 @@ class UsersController extends Controller
 
         // ユーザーの作成
         $user = new User;
-        $user->name = $attr['userName'];
+        $user->name = $attr['userName'].trim();
         $user->password = password_hash($attr['password'], PASSWORD_DEFAULT);
         $user->event_id = $event_id;
         $user->save();
