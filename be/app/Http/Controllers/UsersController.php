@@ -57,4 +57,24 @@ class UsersController extends Controller
             'id' => $user->id
         ]);
     }
+
+    public function deleteUser($user_id, $hash, Request $request){
+        $event_id = User::where('id', $user_id)->first()->event_id;
+        $event = Event::find($event_id);
+        // ハッシュ値チェック
+        if ($hash != $event->hash) return $this->SendError('Hash is invalid.');
+
+        // パスワードのチェック
+        $attr = $request->validate([
+            'password' => 'required|numeric|digits:4'
+        ]);
+        if (!password_verify($attr['password'], User::where('id', $user_id)->first()->password)) return $this->SendError('Password is invalid.');
+
+        // ユーザーの削除
+        User::where('id', $user_id)->delete();
+
+        return $this->successData([
+            'result' => true
+        ]);
+    }
 }
