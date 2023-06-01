@@ -2,23 +2,12 @@ import { TextField, Grid, Button } from '@mui/material';
 import axios from 'axios';
 import { useForm } from 'react-hook-form';
 import { useParams } from 'react-router-dom';
-import { message } from 'antd';
 
-export const AddUser = () => {
+export const AddUser = (props: {topBanner: (type: "error" | "success", msg: string) => void}) => {
+  const topBanner = props.topBanner;
 
   // パスクエリ取得
   const { hash, eventId } = useParams<{hash: string, eventId: string}>();
-
-  const [messageApi, contextHolder] = message.useMessage();
-
-  // エラーメッセージ
-  const error = (msg: string) => {
-    messageApi.open({
-      type: 'error',
-      content: msg,
-      duration: 5,
-    });
-  }
 
   const { register, watch, handleSubmit, formState: { errors } } = useForm(
     {
@@ -36,14 +25,13 @@ export const AddUser = () => {
       .then(res => {
         window.location.href=`/register/${eventId}/${hash}?user=${res.data['id']}`;
       }).catch(err => {
-        error("ユーザー登録に失敗しました");
+        topBanner("error", "ユーザー登録に失敗しました");
       });
 
   }
 
   return (
     <>
-      {contextHolder}
       <Grid container spacing={1}>
         <Grid item xs={12}>
           <TextField
