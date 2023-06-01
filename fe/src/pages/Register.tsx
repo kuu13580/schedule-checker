@@ -31,11 +31,13 @@ export const Register = () => {
       setUserId(userIdFromQuery);
       setSearchParams({});
       topBanner("success", "ユーザー登録が完了しました");
+      // eslint-disable-next-line
       isBannered = true;
     }
     if (previousPage) {
       previousPage === "delete" && topBanner("success", "ユーザーを削除しました");
       setSearchParams({});
+      // eslint-disable-next-line
       isBannered = true;
     }
   }, []);
