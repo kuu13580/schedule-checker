@@ -23,11 +23,16 @@ export const Register = () => {
   // クエリパラメータを取得、ユーザーIDを設定
   const [searchParams, setSearchParams] = useSearchParams();
   const userIdFromQuery = searchParams.get('user');
+  const previousPage = searchParams.get('prev');
   useEffect(() => {
     if (userIdFromQuery) {
       setUserId(userIdFromQuery);
       setSearchParams({});
       topBanner("success", "ユーザー登録が完了しました");
+    }
+    if (previousPage) {
+      previousPage === "delete" && topBanner("success", "ユーザーを削除しました");
+      setSearchParams({});
     }
   }, []);
 

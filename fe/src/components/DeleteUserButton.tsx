@@ -11,7 +11,7 @@ export const DeleteUserButton = (props: {userId: string, password: string, topBa
   const deleteUser = () => {
     axios.post(`${process.env.REACT_APP_API_URL}/users/${userId}/${hash}/delete`, {password: password})
       .then((res) => {
-        window.location.href = `/register/${eventId}/${hash}`;
+        window.location.href = `/register/${eventId}/${hash}?prev=delete`;
       })
       .catch((err) => {
         topBanner("error", "ユーザーの削除に失敗しました");
