@@ -145,7 +145,7 @@ export const RegisterCalendar = (props: {userId: string, password: string, topBa
       </ConfigProvider>
       <Button variant="contained" color="primary" onClick={saveData}>保存</Button>
       <LoadingBackdrop isShow={showLoading} />
-      <DeleteUserButton userId={userId} password={password} />
+      <DeleteUserButton userId={userId} password={password} topBanner={topBanner} />
     </>
   );
 };
