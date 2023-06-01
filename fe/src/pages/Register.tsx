@@ -24,15 +24,19 @@ export const Register = () => {
   const [searchParams, setSearchParams] = useSearchParams();
   const userIdFromQuery = searchParams.get('user');
   const previousPage = searchParams.get('prev');
+  let isBannered = false;
   useEffect(() => {
+    if (isBannered) return;
     if (userIdFromQuery) {
       setUserId(userIdFromQuery);
       setSearchParams({});
       topBanner("success", "ユーザー登録が完了しました");
+      isBannered = true;
     }
     if (previousPage) {
       previousPage === "delete" && topBanner("success", "ユーザーを削除しました");
       setSearchParams({});
+      isBannered = true;
     }
   }, []);
 
