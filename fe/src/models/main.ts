@@ -21,4 +21,5 @@ export type EventForm = {
   endDate: Dayjs | null;
   ownerName: string;
   password: string;
+  passwordConfirm: string;
 }

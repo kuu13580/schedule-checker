@@ -18,6 +18,7 @@ export const Create = () => {
       startDate: null,
       endDate: null,
       password: '',
+      passwordConfirm: '',
     }
   })
 
@@ -128,6 +129,18 @@ export const Create = () => {
             inputProps={{ maxLength: 4 }}
             {...register('password', { required: true, pattern: /^[0-9]{4}$/ })}
             error={"password" in errors} />
+        </Grid>
+        <Grid item xs={12}>
+          <TextField
+            id="passwordConfirm"
+            label="パスワード(確認)"
+            variant="outlined"
+            type='password'
+            inputProps={{ maxLength: 4 }}
+            {...register('passwordConfirm', { required: true, validate: (value) => value === watch('password') })}
+            helperText={"passwordConfirm" in errors && "パスワードが一致しません"}
+            error={"passwordConfirm" in errors}
+          />
         </Grid>
         <Grid item xs={12}>
           <Button
