@@ -8,6 +8,7 @@ export const PasswordBox = (props: {userId: string, handleAuthenticate: (passwor
 
   const [password, setPassword] = useState<string>('');
   const [isError, setIsError] = useState<boolean>(false);
+  const [remain, setRemain] = useState<number>(0);
 
   const { hash } = useParams<{hash: string}>();
   const handlePasswordChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -35,6 +36,7 @@ export const PasswordBox = (props: {userId: string, handleAuthenticate: (passwor
         } else {
           setIsError(true);
           setPassword('');
+          setRemain(res.data['remain']);
         }
       })
   }
@@ -49,7 +51,7 @@ export const PasswordBox = (props: {userId: string, handleAuthenticate: (passwor
         margin='normal'
         inputProps={{ maxLength: 4 }}
         error={isError}
-        helperText={isError && "パスワードが間違っています"}
+        helperText={isError && (remain === 0 ? "パスワードの試行回数を超えたためロック中" : `パスワードが間違っています(残り${remain}回試行可能)`)}
         />
     </>
   )
