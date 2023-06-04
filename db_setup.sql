@@ -1,4 +1,5 @@
 -- mysql -u root < <このファイル>
+SET GLOBAL validate_password_policy=LOW;
 DROP DATABASE IF EXISTS schedule_development;
 CREATE DATABASE schedule_development CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 DROP USER IF EXISTS 'schedule_development'@'localhost';
