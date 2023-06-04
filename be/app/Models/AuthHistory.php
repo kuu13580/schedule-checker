@@ -8,5 +8,6 @@ use Illuminate\Database\Eloquent\Model;
 class AuthHistory extends Model
 {
     use HasFactory;
+    protected $fillable = ['user_id', 'ip_addr', 'date', 'count'];
     protected $table = 'authenticate_history';
 }

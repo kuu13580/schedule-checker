@@ -5,7 +5,9 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\User;
 use App\Models\Event;
+use App\Models\AuthHistory;
 
+const MAX_AUTH = 5;
 class UsersController extends Controller
 {
     public function getUsersByEventId($event_id, $hash){
@@ -25,13 +27,36 @@ class UsersController extends Controller
             'password' => 'required|numeric|digits:4'
         ]);
 
+        // 認証回数情報取得
+        $ip_addr =$request->ip();
+        $authHistory = AuthHistory::firstOrNew(['user_id' => $user_id, 'ip_addr' => $ip_addr, 'date' => date('Y-m-d')]);
+
+        // 認証失敗が5回以上の場合は失敗として処理
+        if ($authHistory->count >= MAX_AUTH) {
+          return $this->successData([
+            'result' => false,
+            'remain' => MAX_AUTH - $authHistory->count,
+          ]);
+        }
+
         // パスワードを確認
-        if (!password_verify($attr['password'], User::where('id', $user_id)->first()->password)) return $this->successData([
-            'result' => false
-        ]);
+        if (password_verify($attr['password'], User::where('id', $user_id)->first()->password)) {
+          $tmp = AuthHistory::where([['user_id', $user_id], ['ip_addr', $ip_addr]])->first();
+          if ($tmp) {
+            $tmp->delete();
+          }
+          return $this->successData([
+            'result' => true
+          ]);
+        }
+
+        // 認証失敗
+        $authHistory->count += 1;
+        $authHistory->save();
 
         return $this->successData([
-            'result' => true
+            'result' => false,
+            'remain' => MAX_AUTH - $authHistory->count,
         ]);
     }
 
