@@ -16,7 +16,7 @@ return new class extends Migration
             $table->string('ip_addr')->nullable(false);
             $table->bigInteger('user_id')->unsigned()->nullable(false);
             $table->date('date')->nullable(false)->default(today());
-            $table->decimal("time")->nullable(false)->default(0);
+            $table->decimal("count")->nullable(false)->default(0);
             $table->timestamps();
         });
     }
