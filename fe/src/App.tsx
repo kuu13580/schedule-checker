@@ -1,4 +1,3 @@
-// import { useState } from 'react';
 import './App.css';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { Create, Home, Register } from './pages';
@@ -12,7 +11,7 @@ dayjs.locale('ja');
 function App() {
   // const [event, setEvent] = useState<number | null>(null);
   return (
-    <Router>
+    <Router basename="/">
       <Routes>
         <Route path="/" element={<Home/>} />
         <Route path="/create" element={<Create/>} />
