@@ -12,7 +12,7 @@ dayjs.locale('ja');
 function App() {
   // const [event, setEvent] = useState<number | null>(null);
   return (
-    <Router>
+    <Router basename='/schedule-checker'>
       <Routes>
         <Route path="/" element={<Home/>} />
         <Route path="/create" element={<Create/>} />

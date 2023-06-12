@@ -2,7 +2,7 @@
   "name": "fe",
   "version": "0.1.0",
   "private": true,
-  "homepage": "./",
+  "homepage": "/schedule-checker",
   "dependencies": {
     "@emotion/react": "^11.10.8",
     "@emotion/styled": "^11.10.8",
