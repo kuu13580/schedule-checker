@@ -49,7 +49,7 @@ export const PasswordBox = (props: {userId: string, handleAuthenticate: (passwor
         label="パスワード(数字4桁)"
         type="password"
         margin='normal'
-        inputProps={{ maxLength: 4 }}
+        inputProps={{ maxLength: 4, inputMode: "numeric" }}
         error={isError}
         helperText={isError && (remain === 0 ? "パスワードの試行回数を超えたためロック中" : `パスワードが間違っています(残り${remain}回試行可能)`)}
         />
