@@ -23,7 +23,7 @@ export const AddUser = (props: {topBanner: (type: "error" | "success", msg: stri
     // ユーザー登録処理
     axios.post(`${process.env.REACT_APP_API_URL}/users/${eventId}/${hash}/create`, data)
       .then(res => {
-        window.location.href=`/register/${eventId}/${hash}?user=${res.data['id']}`;
+        window.location.href=`${process.env.REACT_APP_URL}/register/${eventId}/${hash}?user=${res.data['id']}`;
       }).catch(err => {
         topBanner("error", "ユーザー登録に失敗しました");
       });
