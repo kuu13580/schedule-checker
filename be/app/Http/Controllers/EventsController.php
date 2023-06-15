@@ -9,12 +9,9 @@ use App\Models\User;
 class EventsController extends Controller
 {
     public function getEventById($id, $hash){
-        $event = Event::leftjoin('event_owner_rel', 'events.id', '=', 'event_owner_rel.event_id')
-            ->find($id);
+        $event = Event::find($id);
         // ハッシュ値チェック
         if ($hash != $event->hash) return $this->SendError('Hash is invalid.');
-        $owner_id = EventOwnerRel::where('event_id', $id)->first()->owner_id;
-        $event['owner_id'] = $owner_id;
         return $this->successData($event);
     }
 
