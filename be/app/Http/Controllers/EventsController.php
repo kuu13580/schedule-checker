@@ -46,6 +46,6 @@ class EventsController extends Controller
         $owner->password = password_hash($attr['password'], PASSWORD_DEFAULT);
         $owner->save();
 
-        return $this->successData(['event_id' => $event->id, 'pass' => $event->hash]);
+        return $this->successData(['event_id' => $event->id, 'hash' => $event->hash]);
     }
 }

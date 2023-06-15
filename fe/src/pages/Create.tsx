@@ -57,7 +57,7 @@ export const Create = () => {
           return;
         }
         const eventId = res.data["event_id"];
-        const hash = res.data["pass"];
+        const hash = res.data["hash"];
         window.location.href = `${process.env.REACT_APP_URL}/register/${eventId}/${hash}?prev=create`;
       }).catch(err => {
         topBanner("error", "イベント作成に失敗しました");

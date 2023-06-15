@@ -36,6 +36,7 @@ export const Register = () => {
     }
     if (previousPage) {
       previousPage === "delete" && topBanner("success", "ユーザーを削除しました");
+      previousPage === "create" && topBanner("success", "イベントを作成しました");
       setSearchParams({});
       // eslint-disable-next-line
       isBannered = true;
