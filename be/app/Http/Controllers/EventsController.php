@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Event;
-use App\Models\EventOwnerRel;
 use App\Models\User;
 
 class EventsController extends Controller
@@ -45,12 +44,6 @@ class EventsController extends Controller
         $owner->name = $attr['ownerName'];
         $owner->password = password_hash($attr['password'], PASSWORD_DEFAULT);
         $owner->save();
-
-        // EventOwnerRelの作成
-        $rel = new EventOwnerRel;
-        $rel->event_id = $event->id;
-        $rel->owner_id = $owner->id;
-        $rel->save();
 
         return $this->successData(['event_id' => $event->id, 'pass' => $event->hash]);
     }
