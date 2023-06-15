@@ -7,7 +7,6 @@ use Illuminate\Database\Seeder;
 use App\Models\Event;
 use App\Models\User;
 use App\Models\Schedule;
-use App\Models\EventOwnerRel;
 
 class DatabaseSeeder extends Seeder
 {
@@ -22,6 +21,7 @@ class DatabaseSeeder extends Seeder
           'start_date' => '2021-01-15',
           'end_date' => '2021-03-15',
           'hash' => substr(hash('sha256','testhash1'), 0, 20),
+          'password' => password_hash('1234', PASSWORD_DEFAULT),
       ]);
       Event::create([
           'id' => 2,
@@ -29,6 +29,7 @@ class DatabaseSeeder extends Seeder
           'start_date' => '2021-03-26',
           'end_date' => '2021-05-27',
           'hash' => substr(hash('sha256','testhash2'), 0, 20),
+          'password' => password_hash('1234', PASSWORD_DEFAULT),
       ]);
 
       User::create([
@@ -63,14 +64,5 @@ class DatabaseSeeder extends Seeder
           'event_id' => 1,
           'status' => 'potential',
       ]);
-      
-      EventOwnerRel::create([
-          'event_id' => 1,
-          'owner_id' => 1,
-      ]);
-      EventOwnerRel::create([
-        'event_id' => 2,
-        'owner_id' => 3,
-    ]);
     }
 }

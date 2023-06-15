@@ -17,6 +17,7 @@ return new class extends Migration
             $table->date('start_date')->nullable(false);
             $table->date('end_date')->nullable(false);
             $table->string('hash')->nullable(false);
+            $table->string('password')->nullable(false);
             $table->timestamps();
         });
     }

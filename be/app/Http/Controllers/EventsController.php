@@ -36,6 +36,7 @@ class EventsController extends Controller
         $event->start_date = $attr['startDate'];
         $event->end_date = $attr['endDate'];
         $event->hash = substr(hash('sha256', $attr['name'].date('Y-m-d-H-i-s')), 0, 20);
+        $event->password = password_hash($attr['password'], PASSWORD_DEFAULT);
         $event->save();
 
         // ownerユーザーの作成
