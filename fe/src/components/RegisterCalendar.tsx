@@ -47,12 +47,13 @@ export const RegisterCalendar = (props: {userId: string, password: string, topBa
     // ユーザーのスケジュールを取得
     .then((res) => {
       setData(initData(tmpDateRange,
-        res.data.map((d: any) => {
+        res.data["schedules"].map((d: any) => {
           return {
             date: dayjs(d['date']),
             status: d['status']
           } as Schedule;
         })));
+      console.log(res.data["message"]);
     })
     .catch((err) => {
       topBanner("error", 'データの取得に失敗しました');

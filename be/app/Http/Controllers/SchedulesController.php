@@ -12,7 +12,8 @@ class SchedulesController extends Controller
     public function getSchedulesByUserId($user_id, $hash, Request $request)
     {
         // ハッシュチェック
-        $event_id = User::where('id', $user_id)->first()->event_id;
+        $user = User::where('id', $user_id)->first();
+        $event_id = $user->event_id;
         if ($hash != Event::where('id', $event_id)->first()->hash) return $this->SendError('Hash is invalid.');
 
         $attr = $request->validate([
@@ -21,15 +22,20 @@ class SchedulesController extends Controller
         $schedules = Schedule::where('user_id', $user_id)->get();
 
         // パスワードを確認
-        if (!password_verify($attr['password'], User::where('id', $user_id)->first()->password)) return $this->SendError('password is incorrect.');
+        if (!password_verify($attr['password'], $user->password)) return $this->SendError('password is incorrect.');
 
-        return response()->json($schedules);
+        $data = [
+          'schedules' => $schedules,
+          'message' => $user->message
+        ];
+        return $this->successData($data);
     }
 
     public function updateSchedulesByUserId($user_id, $hash, Request $request)
     {
         // ハッシュチェック
-        $event_id = User::where('id', $user_id)->first()->event_id;
+        $user = User::where('id', $user_id)->first();
+        $event_id = $user->event_id;
         if ($hash != Event::where('id', $event_id)->first()->hash) return $this->SendError('Hash is invalid.');
 
         $attr = $request->validate([
@@ -38,7 +44,7 @@ class SchedulesController extends Controller
         $schedules = Schedule::where('user_id', $user_id)->get();
 
         // パスワードを確認
-        if (!password_verify($attr['password'], User::where('id', $user_id)->first()->password)) return $this->SendError('password is incorrect.');
+        if (!password_verify($attr['password'], $user->password)) return $this->SendError('password is incorrect.');
 
         try {
           foreach ($request->scheduleArray as $schedule) {
@@ -47,6 +53,7 @@ class SchedulesController extends Controller
                 ['status' => $schedule['status']]
               );
           }
+          $user->message = $request->message;
         } catch (\Exception $e) {
           return $this->SendError($e);
         }
