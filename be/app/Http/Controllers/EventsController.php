@@ -9,7 +9,7 @@ use App\Models\User;
 class EventsController extends Controller
 {
     public function getEventById($id, $hash){
-        $event = Event::find($id)->first();
+        $event = Event::where('id', $id)->first();
         // ハッシュ値チェック
         if ($hash != $event->hash) return $this->SendError('Hash is invalid.');
         return $this->successData($event);
