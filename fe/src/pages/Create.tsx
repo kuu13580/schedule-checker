@@ -66,7 +66,7 @@ export const Create = () => {
   }
 
   return (
-    <Container maxWidth={'lg'}>
+    <Container maxWidth='md' sx={{ my: 2 }}>
       {contextHolder}
       <Grid container spacing={2}>
         <Grid item xs={12}>
@@ -147,12 +147,6 @@ export const Create = () => {
             variant="contained"
             onClick={handleSubmit(onSubmit)}>
             作成
-          </Button>
-        </Grid>
-        <Grid item xs={12}>
-          <Button
-            onClick={() => console.log(errors)}>
-            デバッグ
           </Button>
         </Grid>
       </Grid>
