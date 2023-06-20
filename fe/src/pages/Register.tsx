@@ -1,11 +1,12 @@
 import { Container } from "@mui/material";
 import { RegisterCalendar, PasswordBox, UserSelector, AddUser } from "../components";
 import { useState, useEffect } from "react";
-import { useSearchParams } from "react-router-dom";
+import { useSearchParams, useParams } from "react-router-dom";
 import { message } from "antd";
 import { Header } from "../components";
 
 export const Register = () => {
+  const { eventId, hash } = useParams<{eventId: string, hash: string}>();
   const [showContent, setShowContent] = useState<string>('PasswordBox');
   const [password, setPassword] = useState<string>('');
   const [userId, setUserId] = useState<string>('');
@@ -52,7 +53,7 @@ export const Register = () => {
 
   return (
     <>
-      <Header />
+      <Header pages={[{"name": "管理者画面", "path": `${process.env.REACT_APP_URL}/view/${eventId}/${hash}`}]}/>
       {contextHolder}
       <Container maxWidth='md' sx={{my: 2}}>
         <UserSelector

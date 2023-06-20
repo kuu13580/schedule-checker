@@ -2,10 +2,10 @@ import { Link } from 'react-router-dom';
 import { AppBar, Box, Container, Toolbar, Typography, Button } from '@mui/material';
 import { Page } from '../models';
 
-export const Header = () => {
+export const Header = (props: { pages: Page[] }) => {
   const pages: Page[] = [
     { name: '新規作成', path: '/create' },
-  ];
+  ].concat(props.pages);
 
   return (
     <AppBar position="static">

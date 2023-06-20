@@ -68,7 +68,7 @@ export const Create = () => {
 
   return (
     <>
-      <Header />
+      <Header pages={[]}/>
       <Container maxWidth='md' sx={{ my: 2 }}>
         {contextHolder}
         <Grid container spacing={2}>
