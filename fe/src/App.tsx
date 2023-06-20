@@ -4,16 +4,17 @@ import { Create, Home, Register } from './pages';
 import dayjs from 'dayjs';
 import weekday from 'dayjs/plugin/weekday';
 import 'dayjs/locale/ja';
+import { Header } from './components';
 
 dayjs.extend(weekday);
 dayjs.locale('ja');
 
 function App() {
-  // const [event, setEvent] = useState<number | null>(null);
   return (
     <Router basename='/schedule-checker'>
+      <Header/>
       <Routes>
-        <Route path="/" element={<Home/>} />
+        <Route path="/" element={<Create/>} />
         <Route path="/create" element={<Create/>} />
         <Route path="/register/:eventId/:hash" element={<Register/>} />
       </Routes>
