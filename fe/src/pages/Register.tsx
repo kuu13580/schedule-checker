@@ -3,6 +3,7 @@ import { RegisterCalendar, PasswordBox, UserSelector, AddUser } from "../compone
 import { useState, useEffect } from "react";
 import { useSearchParams } from "react-router-dom";
 import { message } from "antd";
+import { Header } from "../components";
 
 export const Register = () => {
   const [showContent, setShowContent] = useState<string>('PasswordBox');
@@ -51,6 +52,7 @@ export const Register = () => {
 
   return (
     <>
+      <Header />
       {contextHolder}
       <Container maxWidth='md' sx={{my: 2}}>
         <UserSelector

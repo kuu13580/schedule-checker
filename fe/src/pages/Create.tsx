@@ -8,6 +8,7 @@ import { EventForm } from "../models";
 import { useEffect, useState } from "react";
 import axios from "axios";
 import { message } from "antd";
+import { Header } from "../components";
 
 
 export const Create = () => {
@@ -66,90 +67,93 @@ export const Create = () => {
   }
 
   return (
-    <Container maxWidth='md' sx={{ my: 2 }}>
-      {contextHolder}
-      <Grid container spacing={2}>
-        <Grid item xs={12}>
-          <TextField
-            required
-            label="イベント名(最大20文字)"
-            variant="outlined"
-            inputProps={{ maxLength: 20 }}
-            {...register('name', { required: true, maxLength: 20 })}
-            error={"name" in errors} />
-        </Grid>
-        <LocalizationProvider dateAdapter={AdapterDayjs} adapterLocale={ja}>
+    <>
+      <Header />
+      <Container maxWidth='md' sx={{ my: 2 }}>
+        {contextHolder}
+        <Grid container spacing={2}>
           <Grid item xs={12}>
-            <Controller
-              name="startDate"
-              control={control}
-              render={({ field }) => (
-                <DatePicker
-                  {...field}
-                  label="始点日"
-                  format="YYYY/M/D"
-                />
-              )} />
+            <TextField
+              required
+              label="イベント名(最大20文字)"
+              variant="outlined"
+              inputProps={{ maxLength: 20 }}
+              {...register('name', { required: true, maxLength: 20 })}
+              error={"name" in errors} />
+          </Grid>
+          <LocalizationProvider dateAdapter={AdapterDayjs} adapterLocale={ja}>
+            <Grid item xs={12}>
+              <Controller
+                name="startDate"
+                control={control}
+                render={({ field }) => (
+                  <DatePicker
+                    {...field}
+                    label="始点日"
+                    format="YYYY/M/D"
+                  />
+                )} />
+            </Grid>
+            <Grid item xs={12}>
+              <Controller
+                name="endDate"
+                control={control}
+                render={({ field }) => (
+                  <DatePicker
+                    {...field}
+                    label="終点日"
+                    format="YYYY/M/D"
+                    slotProps={{
+                      textField: {
+                        helperText: dateError === 'orderError' ? '日付が前後しています' : dateError === 'requiredError' ? '日付を入力してください' : '',
+                      },
+                    }}
+                  />
+                )} />
+            </Grid>
+          </LocalizationProvider>
+          <Grid item xs={12}>
+            <TextField
+              required
+              label="主催者名（最大10文字）"
+              inputProps={
+                { maxLength: 10 }
+              }
+              variant="outlined"
+              {...register('ownerName', { required: true, maxLength: 10 })}
+              error={"ownerName" in errors} />
           </Grid>
           <Grid item xs={12}>
-            <Controller
-              name="endDate"
-              control={control}
-              render={({ field }) => (
-                <DatePicker
-                  {...field}
-                  label="終点日"
-                  format="YYYY/M/D"
-                  slotProps={{
-                    textField: {
-                      helperText: dateError === 'orderError' ? '日付が前後しています' : dateError === 'requiredError' ? '日付を入力してください' : '',
-                    },
-                  }}
-                />
-              )} />
+            <TextField
+              required
+              label="パスワード(数字4桁)"
+              type="password"
+              variant="outlined"
+              inputProps={{ maxLength: 4 }}
+              {...register('password', { required: true, pattern: /^[0-9]{4}$/ })}
+              error={"password" in errors} />
           </Grid>
-        </LocalizationProvider>
-        <Grid item xs={12}>
-          <TextField
-            required
-            label="主催者名（最大10文字）"
-            inputProps={
-              { maxLength: 10 }
-            }
-            variant="outlined"
-            {...register('ownerName', { required: true, maxLength: 10 })}
-            error={"ownerName" in errors} />
+          <Grid item xs={12}>
+            <TextField
+              id="passwordConfirm"
+              label="パスワード(確認)"
+              variant="outlined"
+              type='password'
+              inputProps={{ maxLength: 4 }}
+              {...register('passwordConfirm', { required: true, validate: (value) => value === watch('password') })}
+              helperText={"passwordConfirm" in errors && "パスワードが一致しません"}
+              error={"passwordConfirm" in errors}
+            />
+          </Grid>
+          <Grid item xs={12}>
+            <Button
+              variant="contained"
+              onClick={handleSubmit(onSubmit)}>
+              作成
+            </Button>
+          </Grid>
         </Grid>
-        <Grid item xs={12}>
-          <TextField
-            required
-            label="パスワード(数字4桁)"
-            type="password"
-            variant="outlined"
-            inputProps={{ maxLength: 4 }}
-            {...register('password', { required: true, pattern: /^[0-9]{4}$/ })}
-            error={"password" in errors} />
-        </Grid>
-        <Grid item xs={12}>
-          <TextField
-            id="passwordConfirm"
-            label="パスワード(確認)"
-            variant="outlined"
-            type='password'
-            inputProps={{ maxLength: 4 }}
-            {...register('passwordConfirm', { required: true, validate: (value) => value === watch('password') })}
-            helperText={"passwordConfirm" in errors && "パスワードが一致しません"}
-            error={"passwordConfirm" in errors}
-          />
-        </Grid>
-        <Grid item xs={12}>
-          <Button
-            variant="contained"
-            onClick={handleSubmit(onSubmit)}>
-            作成
-          </Button>
-        </Grid>
-      </Grid>
-    </Container>
+      </Container>
+    </>
   )
 }
