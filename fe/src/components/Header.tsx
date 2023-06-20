@@ -1,10 +1,6 @@
 import { Link } from 'react-router-dom';
 import { AppBar, Box, Container, Toolbar, Typography, Button } from '@mui/material';
-
-type Page = {
-  name: string;
-  path: string;
-}
+import { Page } from '../models';
 
 export const Header = () => {
   const pages: Page[] = [

@@ -23,3 +23,8 @@ export type EventForm = {
   password: string;
   passwordConfirm: string;
 }
+
+export type Page = {
+  name: string;
+  path: string;
+}
