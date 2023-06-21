@@ -129,7 +129,7 @@ export const Create = () => {
               label="パスワード(数字4桁)"
               type="password"
               variant="outlined"
-              inputProps={{ maxLength: 4 }}
+              inputProps={{ maxLength: 4, inputMode: 'numeric' }}
               {...register('password', { required: true, pattern: /^[0-9]{4}$/ })}
               error={"password" in errors} />
           </Grid>
@@ -139,7 +139,7 @@ export const Create = () => {
               label="パスワード(確認)"
               variant="outlined"
               type='password'
-              inputProps={{ maxLength: 4 }}
+              inputProps={{ maxLength: 4, inputMode: 'numeric' }}
               {...register('passwordConfirm', { required: true, validate: (value) => value === watch('password') })}
               helperText={"passwordConfirm" in errors && "パスワードが一致しません"}
               error={"passwordConfirm" in errors}
