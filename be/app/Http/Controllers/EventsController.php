@@ -45,4 +45,21 @@ class EventsController extends Controller
 
         return $this->successData(['event_id' => $event->id, 'hash' => $event->hash]);
     }
+
+    public function authenticate($id, $hash, Request $request)
+    {
+      // ハッシュ値チェック
+      $event = Event::where('id', $id)->first();
+      if ($hash != $event->hash) return $this->SendError('Hash is invalid.');
+
+      // 認証
+      $attr = $request->validate([
+          'password' => 'required|numeric|digits:4'
+      ]);
+      if (!password_verify($attr['password'], $event->password)) return $this->successData([ 'result' => false ]);
+
+      return $this->successData([
+        'result' => true
+      ]);
+    }
 }
