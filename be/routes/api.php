@@ -28,3 +28,4 @@ Route::post('users/{user_id}/{hash}/delete', [UsersController::class, 'deleteUse
 
 Route::post('schedules/{user_id}/{hash}', [SchedulesController::class, 'getSchedulesByUserId']);
 Route::post('schedules/{user_id}/{hash}/update', [SchedulesController::class, 'updateSchedulesByUserId']);
+Route::post('schedules/all/{event_id}/{hash}', [SchedulesController::class, 'getSchedulesByEventId']);

@@ -59,4 +59,28 @@ class SchedulesController extends Controller
         }
         return $this->successData("update sccessful.");
     }
+
+    public function getSchedulesByEventId($event_id, $hash, Request $request)
+    {
+      // ハッシュチェック
+      $event = Event::where('id', $event_id)->first();
+      if ($hash != $event->hash) return $this->SendError('Hash is invalid.');
+
+      $attr = $request->validate([
+          'password' => 'required|numeric|digits:4'
+      ]);
+      // パスワードを確認
+      if (!password_verify($attr['password'], $event->password)) return $this->SendError('password is incorrect.');
+
+      $users = User::where('event_id', $event_id)->get();
+      $data = [];
+      foreach ($users as $user) {
+        $schedules = Schedule::select('date', 'status')->where('user_id', $user->id)->get();
+        $data[] = [
+          'user_id' => $user->id,
+          'schedules' => $schedules,
+        ];
+      }
+      return $this->successData($data);
+    }
 }
