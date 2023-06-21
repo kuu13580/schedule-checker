@@ -2,10 +2,11 @@ import { useParams } from "react-router-dom"
 import { Header, ViewCalendar, LoadingBackdrop, OwnerPasswordBox } from "../components";
 import { DateRange } from "../models";
 import dayjs from "dayjs";
-import { Container } from "@mui/material";
+import { Box, Checkbox, Container, FormControlLabel, Slider } from "@mui/material";
 import { useEffect, useState } from "react";
 import axios from "axios";
 import { message } from "antd";
+import { get } from "http";
 
 export const OwnerView = () => {
   const { eventId, hash } = useParams<{eventId: string, hash: string}>();
@@ -13,6 +14,9 @@ export const OwnerView = () => {
   const [showLoading, setShowLoading] = useState<boolean>(false);
   const [password, setPassword] = useState<string>('');
   const [showContent, setShowContent] = useState<boolean>(false);
+  const [forceUnavailebleRed, setForceUnavailebleRed] = useState<boolean>(false);
+  const [allowableUnavailable, setAllowableUnavailable] = useState<number>(0);
+  const [userCount, setUserCount] = useState<number>(0);
 
   const [messageApi, contextHolder] = message.useMessage();
   const error = (msg: string) => {
@@ -36,6 +40,7 @@ export const OwnerView = () => {
         end: dayjs(res.data['end_date']),
       };
       setDateRange(tmpDateRange);
+      setUserCount(res.data['user_count']);
     })
     .catch((err) => {
       error('データの取得に失敗しました');
@@ -52,8 +57,33 @@ export const OwnerView = () => {
     setPassword(password);
   }
 
-  const func = (statusArr: string[]) => {
-    return "green";
+  const func = (statusArr: number[]) => {
+    const countUnavailable = statusArr.filter((s) => s === 2).length;
+    if (forceUnavailebleRed) { // 強制赤色
+      if  (countUnavailable > allowableUnavailable) return 'rgb(255, 0, 0)';
+      const max = statusArr.length * 2;
+      const ratio = statusArr.reduce((acc, cur) => { return acc + cur }, 0) / max * 0.8;
+      return getColorByGradient(ratio);
+    } else {
+      const max = 2 * statusArr.length;
+      const ratio = statusArr.reduce((acc, cur) => { return acc + cur; }, 0) / max;
+      return getColorByGradient(ratio);
+    }
+  }
+
+  const getColorByGradient = (ratio: number) => {
+    let r, g, b;
+    b = 0;
+    if (ratio <= 0.5) {
+      // 緑から黄色へのグラデーション
+      r = Math.floor(255 * (2 * ratio));
+      g = 255;
+    } else {
+      // 黄色から赤へのグラデーション
+      r = 255;
+      g = Math.floor(255 * (2 - 2 * ratio));
+    }
+    return `rgb(${r}, ${g}, ${b})`;
   }
 
   return (
@@ -62,7 +92,46 @@ export const OwnerView = () => {
       <Header pages={[{"name": "登録画面", "path": `${process.env.REACT_APP_URL}/register/${eventId}/${hash}`}]}/>
       <Container maxWidth='md'>
         { !showContent && <OwnerPasswordBox handleAuthenticate={handleAuthenticate}/> }
-        { showContent && <ViewCalendar dateRange={dateRange} password={password} func={func}/> }
+        { showContent &&
+          <>
+            <FormControlLabel
+              control={
+                <Checkbox
+                  checked={forceUnavailebleRed}
+                  onChange={(e) => setForceUnavailebleRed(e.target.checked)}
+                />
+              }
+              label="不可を含む日程を赤色にする"
+            />
+            <div>許容不可人数: {allowableUnavailable}</div>
+            <Slider
+              value={allowableUnavailable}
+              min={0}
+              max={userCount - 1}
+              step={1}
+              disabled={!forceUnavailebleRed}
+              onChange={(e, v) => {setAllowableUnavailable(v as number)}}
+              />
+            {!forceUnavailebleRed &&
+              <Box
+                sx={{
+                  width: '100%',
+                  height: 10,
+                  background: 'linear-gradient(to right, rgb(0, 255, 0), rgb(255,255,0), rgb(255, 0, 0))'
+                }}
+              />}
+            {forceUnavailebleRed &&
+              <Box
+                sx={{
+                  width: '100%',
+                  height: 10,
+                  background: 'linear-gradient(to right, rgb(0, 255, 0), rgb(255,255,0), rgb(255, 50, 0))'
+                }}
+              />
+            }
+            <ViewCalendar dateRange={dateRange} password={password} func={func}/>
+          </>
+        }
       </Container>
       <LoadingBackdrop isShow={showLoading} />
     </>

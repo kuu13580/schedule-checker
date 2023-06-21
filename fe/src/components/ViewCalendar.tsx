@@ -9,7 +9,7 @@ import dayjs from "dayjs";
 import axios from "axios";
 import { useParams } from "react-router-dom";
 
-export const ViewCalendar = (props: {dateRange: DateRange, func: (statusArr: string[]) => string, password: string}) => {
+export const ViewCalendar = (props: {dateRange: DateRange, func: (statusArr: number[]) => string, password: string}) => {
   const { eventId, hash } = useParams<{eventId: string, hash: string}>();
   const dateRange = props.dateRange;
   const func = props.func;
@@ -41,7 +41,7 @@ export const ViewCalendar = (props: {dateRange: DateRange, func: (statusArr: str
   }, [dateRange]);
 
   const dateCellRender = (value: Dayjs) => {
-    const bgColor = data.find((d) => d.date.isSame(value)) ? func(data.find((d) => d.date.isSame(value))?.status || [""]): "gray";
+    const bgColor = data.find((d) => d.date.isSame(value)) ? func(data.find((d) => d.date.isSame(value))?.statusWeight || []): "gray";
     return (
       <Box
         sx={{
@@ -64,9 +64,16 @@ export const ViewCalendar = (props: {dateRange: DateRange, func: (statusArr: str
       const status: string[] = data.map((i) => {
         return i.schedules.find((j) => j.date.isSame(date))?.status || '';
       });
+      const statusWeight: number[] = status.map((s) => {
+        if (s === "available") return 0;
+        if (s === "potential") return 1;
+        if (s === "unavailable") return 2;
+        return 0;
+      });
       return {
         date: date,
         status: status,
+        statusWeight: statusWeight,
       } as EventScheduleData;
     });
   }

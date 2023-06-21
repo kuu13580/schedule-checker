@@ -37,4 +37,5 @@ export type UserScheduleData = {
 export type EventScheduleData = {
   date: Dayjs;
   status: string[];
+  statusWeight: number[];
 }
