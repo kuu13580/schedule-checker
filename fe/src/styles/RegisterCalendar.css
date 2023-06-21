@@ -14,3 +14,11 @@
   height: auto;
   aspect-ratio: 1;
 }
+
+.ant-picker-calendar .ant-picker-cell {
+  background-color: rgb(158, 158, 158);
+}
+
+.ant-picker-calendar .ant-picker-cell-in-view {
+  background-color: inherit;
+}
