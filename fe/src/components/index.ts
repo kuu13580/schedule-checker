@@ -6,3 +6,4 @@ export * from './UserSelector';
 export * from './AddUser';
 export * from './DeleteUserButton';
 export * from './Header';
+export * from './ViewCalendar';
