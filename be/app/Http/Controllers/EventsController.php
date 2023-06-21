@@ -12,6 +12,8 @@ class EventsController extends Controller
         $event = Event::where('id', $id)->first();
         // ハッシュ値チェック
         if ($hash != $event->hash) return $this->SendError('Hash is invalid.');
+        $user_count = User::where('event_id', $id)->count();
+        $event['user_count'] = $user_count;
         return $this->successData($event);
     }
 
