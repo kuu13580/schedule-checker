@@ -1,6 +1,6 @@
 import './App.css';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import { Create, Home, Register } from './pages';
+import { Create, OwnerView, Register } from './pages';
 import dayjs from 'dayjs';
 import weekday from 'dayjs/plugin/weekday';
 import 'dayjs/locale/ja';
@@ -15,6 +15,7 @@ function App() {
         <Route path="/" element={<Create/>} />
         <Route path="/create" element={<Create/>} />
         <Route path="/register/:eventId/:hash" element={<Register/>} />
+        <Route path="/view/:eventId/:hash" element={<OwnerView/>} />
       </Routes>
     </Router>
   );
