@@ -28,3 +28,13 @@ export type Page = {
   name: string;
   path: string;
 }
+
+export type UserScheduleData = {
+  userId: number;
+  schedules: Schedule[];
+}
+
+export type EventScheduleData = {
+  date: Dayjs;
+  status: string[];
+}
