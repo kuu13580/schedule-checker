@@ -15,7 +15,7 @@ function App() {
         <Route path="/" element={<Create/>} />
         <Route path="/create" element={<Create/>} />
         <Route path="/register/:eventId/:hash" element={<Register/>} />
-        <Route path="/view/:eventId/:hash" element={<OwnerView/>} />
+        <Route path="/owner/:eventId/:hash" element={<OwnerView/>} />
       </Routes>
     </Router>
   );
