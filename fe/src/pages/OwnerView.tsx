@@ -2,7 +2,7 @@ import { useParams } from "react-router-dom"
 import { Header, ViewCalendar, LoadingBackdrop, OwnerPasswordBox } from "../components";
 import { DateRange } from "../models";
 import dayjs from "dayjs";
-import { Box, Checkbox, Container, FormControlLabel, Slider } from "@mui/material";
+import { Box, Checkbox, Container, FormControlLabel, Slider, Typography } from "@mui/material";
 import { useEffect, useState } from "react";
 import axios from "axios";
 import { message } from "antd";
@@ -17,6 +17,7 @@ export const OwnerView = () => {
   const [allowableUnavailable, setAllowableUnavailable] = useState<number>(0);
   const [userCount, setUserCount] = useState<number>(0);
   const [threshold, setThreshold] = useState<number>(100);
+  const [eventTitle, setEventTitle] = useState<string>('');
 
   const [messageApi, contextHolder] = message.useMessage();
   const error = (msg: string) => {
@@ -40,6 +41,7 @@ export const OwnerView = () => {
         end: dayjs(res.data['end_date']),
       };
       setDateRange(tmpDateRange);
+      setEventTitle(res.data['name']);
       setUserCount(res.data['user_count']);
     })
     .catch((err) => {
@@ -91,6 +93,15 @@ export const OwnerView = () => {
     {contextHolder}
       <Header pages={[{"name": "登録画面", "path": `${process.env.REACT_APP_URL}/register/${eventId}/${hash}`}]}/>
       <Container maxWidth='md'>
+      <Typography
+        variant='h4'
+        sx={{
+          marginTop: 2,
+          marginBottom: 2,
+        }}
+      >
+        {eventTitle}
+      </Typography>
         { !showContent && <OwnerPasswordBox handleAuthenticate={handleAuthenticate}/> }
         { showContent &&
           <>
