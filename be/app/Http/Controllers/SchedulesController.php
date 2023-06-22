@@ -54,6 +54,7 @@ class SchedulesController extends Controller
               );
           }
           $user->message = $request->message;
+          $user->save();
         } catch (\Exception $e) {
           return $this->SendError($e);
         }
