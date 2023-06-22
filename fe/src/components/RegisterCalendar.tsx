@@ -3,12 +3,13 @@ import { Schedule, DateRange } from "../models";
 import { Dayjs } from "dayjs";
 import jaJP from 'antd/lib/locale/ja_JP';
 import "../styles/RegisterCalendar.css"
-import { Box, Button } from "@mui/material";
+import { Box, Button, TextField } from "@mui/material";
 import dayjs from "dayjs";
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import axios from "axios";
 import { DeleteUserButton, LoadingBackdrop, StatusRadio } from "./";
+import { set } from "react-hook-form";
 
 export const RegisterCalendar = (props: {userId: string, password: string, dateRange: DateRange, topBanner: (type: "error" | "success", msg: string) => void}) => {
   const password = props.password;
@@ -24,6 +25,7 @@ export const RegisterCalendar = (props: {userId: string, password: string, dateR
   const [data, setData] = useState<Schedule[]>([]);
   const [selectedStatus, setSelectedStatus] = useState<string>('unavailable');
   const [showLoading, setShowLoading] = useState<boolean>(false);
+  const [textMessage, setTextMessage] = useState<string>('');
 
   useEffect(() => {
     setSelectedValue(dateRange.start);
@@ -42,7 +44,7 @@ export const RegisterCalendar = (props: {userId: string, password: string, dateR
               status: d['status']
             } as Schedule;
           })));
-        console.log(res.data["message"]);
+        setTextMessage(res.data["message"]);
       })
       .catch((err) => {
         topBanner("error", 'データの取得に失敗しました');
@@ -87,7 +89,7 @@ export const RegisterCalendar = (props: {userId: string, password: string, dateR
         date: d.date.format('YYYY-MM-DD'),
       };
     });
-    axios.post(`${process.env.REACT_APP_API_URL}/schedules/${userId}/${hash}/update`, { password: password, scheduleArray: formatData })
+    axios.post(`${process.env.REACT_APP_API_URL}/schedules/${userId}/${hash}/update`, { password: password, scheduleArray: formatData, message: textMessage })
       .then((res) => {
         topBanner("success", 'データを保存しました');
       })
@@ -133,6 +135,17 @@ export const RegisterCalendar = (props: {userId: string, password: string, dateR
           }}
         />
       </ConfigProvider>
+      <TextField
+        id="outlined-multiline-static"
+        label="備考"
+        multiline
+        rows={4}
+        value={textMessage}
+        onChange={(e) => setTextMessage(e.target.value)}
+        variant="outlined"
+        sx={{ my: 2 }}
+        fullWidth
+      />
       <Button variant="contained" color="primary" onClick={saveData}>保存</Button>
       <LoadingBackdrop isShow={showLoading} />
       <DeleteUserButton userId={userId} password={password} topBanner={topBanner} />
