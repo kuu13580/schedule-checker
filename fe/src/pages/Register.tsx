@@ -1,4 +1,4 @@
-import { Container } from "@mui/material";
+import { Container, Typography } from "@mui/material";
 import { RegisterCalendar, PasswordBox, UserSelector, AddUser } from "../components";
 import { useState, useEffect } from "react";
 import { useSearchParams, useParams } from "react-router-dom";
@@ -52,12 +52,11 @@ export const Register = () => {
     }
     // イベント全般のデータを取得
     setShowLoading(true);
-    let tmpDateRange: DateRange;
     // イベント全般のデータを取得
     axios.get(`${process.env.REACT_APP_API_URL}/events/${eventId}/${hash}`)
       .then((res) => {
         // setEventName(res.data['name']);
-        tmpDateRange = {
+        const tmpDateRange: DateRange = {
           start: dayjs(res.data['start_date']),
           end: dayjs(res.data['end_date']),
         };

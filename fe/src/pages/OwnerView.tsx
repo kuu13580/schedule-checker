@@ -32,11 +32,10 @@ export const OwnerView = () => {
   // データ取得
   useEffect(() => {
     setShowLoading(true);
-    let tmpDateRange: DateRange;
     // イベント全般のデータを取得
     axios.get(`${process.env.REACT_APP_API_URL}/events/${eventId}/${hash}`)
     .then((res) => {
-      tmpDateRange = {
+      const tmpDateRange: DateRange = {
         start: dayjs(res.data['start_date']),
         end: dayjs(res.data['end_date']),
       };
