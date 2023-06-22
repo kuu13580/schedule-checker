@@ -122,7 +122,7 @@ export const RegisterCalendar = (props: {userId: string, password: string, dateR
   return (
     <>
       <StatusRadio selectedStatus={selectedStatus} setSelectedStatus={setSelectedStatus} />
-      <ConfigProvider locale={jaJP}>
+      <ConfigProvider locale={jaJP} theme={{ token: {fontSize: 20}}}>
         <Calendar
           cellRender={dateCellRender}
           validRange={[dateRange.start, dateRange.end]}

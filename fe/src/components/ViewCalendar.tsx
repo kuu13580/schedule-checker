@@ -80,7 +80,7 @@ export const ViewCalendar = (props: {dateRange: DateRange, func: (statusArr: num
 
   return (
     <>
-      <ConfigProvider locale={jaJP}>
+      <ConfigProvider locale={jaJP} theme={{ token: {fontSize: 20}}}>
         <Calendar
           cellRender={dateCellRender}
           validRange={[dateRange.start, dateRange.end]}
