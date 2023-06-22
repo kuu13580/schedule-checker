@@ -55,7 +55,6 @@ export const Register = () => {
     // イベント全般のデータを取得
     axios.get(`${process.env.REACT_APP_API_URL}/events/${eventId}/${hash}`)
       .then((res) => {
-        // setEventName(res.data['name']);
         const tmpDateRange: DateRange = {
           start: dayjs(res.data['start_date']),
           end: dayjs(res.data['end_date']),
@@ -82,6 +81,12 @@ export const Register = () => {
       <Header pages={[{"name": "管理者画面", "path": `${process.env.REACT_APP_URL}/owner/${eventId}/${hash}`}]}/>
       {contextHolder}
       <Container maxWidth='md' sx={{my: 2}}>
+        <Typography
+          variant="h4"
+          sx = {{ my: 2 }}
+          >
+          {eventTitle}
+        </Typography>
         <UserSelector
           userId={userId}
           setPassword={setPassword}
