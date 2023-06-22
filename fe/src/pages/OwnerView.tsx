@@ -6,7 +6,6 @@ import { Box, Checkbox, Container, FormControlLabel, Slider } from "@mui/materia
 import { useEffect, useState } from "react";
 import axios from "axios";
 import { message } from "antd";
-import { get } from "http";
 
 export const OwnerView = () => {
   const { eventId, hash } = useParams<{eventId: string, hash: string}>();
