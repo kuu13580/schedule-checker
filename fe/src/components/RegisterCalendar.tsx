@@ -10,9 +10,10 @@ import { useParams } from "react-router-dom";
 import axios from "axios";
 import { DeleteUserButton, LoadingBackdrop, StatusRadio } from "./";
 
-export const RegisterCalendar = (props: {userId: string, password: string, topBanner: (type: "error" | "success", msg: string) => void}) => {
+export const RegisterCalendar = (props: {userId: string, password: string, dateRange: DateRange, topBanner: (type: "error" | "success", msg: string) => void}) => {
   const password = props.password;
   const userId = props.userId;
+  const dateRange = props.dateRange;
   const topBanner = props.topBanner;
 
   // パスパラメータ取得
@@ -22,7 +23,6 @@ export const RegisterCalendar = (props: {userId: string, password: string, topBa
   const [selectedValue, setSelectedValue] = useState<Dayjs>(dayjs());
   const [data, setData] = useState<Schedule[]>([]);
   const [selectedStatus, setSelectedStatus] = useState<string>('unavailable');
-  const [dateRange, setDateRange] = useState<DateRange>({start: dayjs(), end: dayjs()});
   const [showLoading, setShowLoading] = useState<boolean>(false);
 
   useEffect(() => {
@@ -32,35 +32,24 @@ export const RegisterCalendar = (props: {userId: string, password: string, topBa
   // 初回ローカルデータセット
   useEffect(() => {
     setShowLoading(true);
-    let tmpDateRange: DateRange;
-    // イベント全般のデータを取得
-    axios.get(`${process.env.REACT_APP_API_URL}/events/${eventId}/${hash}`)
-    .then((res) => {
-      // setEventName(res.data['name']);
-      tmpDateRange = {
-        start: dayjs(res.data['start_date']),
-        end: dayjs(res.data['end_date']),
-      };
-      setDateRange(tmpDateRange);
-      return axios.post(`${process.env.REACT_APP_API_URL}/schedules/${userId}/${hash}`, { password: password });
-    })
     // ユーザーのスケジュールを取得
-    .then((res) => {
-      setData(initData(tmpDateRange,
-        res.data["schedules"].map((d: any) => {
-          return {
-            date: dayjs(d['date']),
-            status: d['status']
-          } as Schedule;
-        })));
-      console.log(res.data["message"]);
-    })
-    .catch((err) => {
-      topBanner("error", 'データの取得に失敗しました');
-    })
-    .finally(() => {
-      setShowLoading(false);
-    });
+    axios.post(`${process.env.REACT_APP_API_URL}/schedules/${userId}/${hash}`, { password: password })
+      .then((res) => {
+        setData(initData(dateRange,
+          res.data["schedules"].map((d: any) => {
+            return {
+              date: dayjs(d['date']),
+              status: d['status']
+            } as Schedule;
+          })));
+        console.log(res.data["message"]);
+      })
+      .catch((err) => {
+        topBanner("error", 'データの取得に失敗しました');
+      })
+      .finally(() => {
+        setShowLoading(false);
+      });
     // eslint-disable-next-line
   }, []);
 

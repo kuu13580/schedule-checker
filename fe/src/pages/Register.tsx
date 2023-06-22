@@ -4,12 +4,19 @@ import { useState, useEffect } from "react";
 import { useSearchParams, useParams } from "react-router-dom";
 import { message } from "antd";
 import { Header } from "../components";
+import { DateRange } from "../models";
+import dayjs from "dayjs";
+import axios from "axios";
+import { LoadingBackdrop } from "../components";
 
 export const Register = () => {
   const { eventId, hash } = useParams<{eventId: string, hash: string}>();
   const [showContent, setShowContent] = useState<string>('PasswordBox');
   const [password, setPassword] = useState<string>('');
   const [userId, setUserId] = useState<string>('');
+  const [dateRange, setDateRange] = useState<DateRange>({start: dayjs(), end: dayjs()});
+  const [showLoading, setShowLoading] = useState<boolean>(false);
+  const [eventTitle, setEventTitle] = useState<string>('');
 
   const [messageApi, contextHolder] = message.useMessage();
 
@@ -43,6 +50,26 @@ export const Register = () => {
       // eslint-disable-next-line
       isBannered = true;
     }
+    // イベント全般のデータを取得
+    setShowLoading(true);
+    let tmpDateRange: DateRange;
+    // イベント全般のデータを取得
+    axios.get(`${process.env.REACT_APP_API_URL}/events/${eventId}/${hash}`)
+      .then((res) => {
+        // setEventName(res.data['name']);
+        tmpDateRange = {
+          start: dayjs(res.data['start_date']),
+          end: dayjs(res.data['end_date']),
+        };
+        setEventTitle(res.data['name']);
+        setDateRange(tmpDateRange);
+      })
+      .catch((err) => {
+        topBanner("error", 'データの取得に失敗しました');
+      })
+      .finally(() => {
+        setShowLoading(false);
+    });
   }, []);
 
   // パスワード認証
@@ -63,9 +90,10 @@ export const Register = () => {
           setShowContent={setShowContent}
           topBanner={topBanner}/>
         {showContent === "PasswordBox" && <PasswordBox userId={userId} handleAuthenticate={handleAuthenticate} />}
-        {showContent === "RegisterCalendar" && <RegisterCalendar userId={userId} password={password} topBanner={topBanner}/> }
+        {showContent === "RegisterCalendar" && <RegisterCalendar userId={userId} password={password} dateRange={dateRange} topBanner={topBanner}/> }
         {showContent === "AddUser" && <AddUser topBanner={topBanner}/>}
       </Container>
+      <LoadingBackdrop isShow={showLoading} />
     </>
   );
 }
