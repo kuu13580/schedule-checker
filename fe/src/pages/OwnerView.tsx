@@ -95,10 +95,7 @@ export const OwnerView = () => {
       <Container maxWidth='md'>
       <Typography
         variant='h4'
-        sx={{
-          marginTop: 2,
-          marginBottom: 2,
-        }}
+        sx={{ my: 2 }}
       >
         {eventTitle}
       </Typography>
