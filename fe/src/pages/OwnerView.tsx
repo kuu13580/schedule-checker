@@ -17,6 +17,7 @@ export const OwnerView = () => {
   const [forceUnavailebleRed, setForceUnavailebleRed] = useState<boolean>(false);
   const [allowableUnavailable, setAllowableUnavailable] = useState<number>(0);
   const [userCount, setUserCount] = useState<number>(0);
+  const [threshold, setThreshold] = useState<number>(100);
 
   const [messageApi, contextHolder] = message.useMessage();
   const error = (msg: string) => {
@@ -62,11 +63,11 @@ export const OwnerView = () => {
     if (forceUnavailebleRed) { // 強制赤色
       if  (countUnavailable > allowableUnavailable) return 'rgb(255, 0, 0)';
       const max = statusArr.length * 2;
-      const ratio = statusArr.reduce((acc, cur) => { return acc + cur }, 0) / max * 0.8;
+      const ratio = Math.min(statusArr.reduce((acc, cur) => { return acc + cur }, 0) / max * 80 / threshold, 1);
       return getColorByGradient(ratio);
     } else {
       const max = 2 * statusArr.length;
-      const ratio = statusArr.reduce((acc, cur) => { return acc + cur; }, 0) / max;
+      const ratio = Math.min(statusArr.reduce((acc, cur) => { return acc + cur; }, 0) / max * 100 / threshold, 1);
       return getColorByGradient(ratio);
     }
   }
@@ -112,12 +113,18 @@ export const OwnerView = () => {
               disabled={!forceUnavailebleRed}
               onChange={(e, v) => {setAllowableUnavailable(v as number)}}
               />
+            <div>しきい値：</div>
+            <Slider
+              min={1}
+              value={threshold}
+              onChange={(e, v) => {setThreshold(v as number)}}
+              />
             {!forceUnavailebleRed &&
               <Box
                 sx={{
                   width: '100%',
                   height: 10,
-                  background: 'linear-gradient(to right, rgb(0, 255, 0), rgb(255,255,0), rgb(255, 0, 0))'
+                  background: `linear-gradient(to right, rgb(0, 255, 0), rgb(255,255,0), rgb(255, 0, 0) ${threshold}%, rgb(255, 0, 0))`
                 }}
               />}
             {forceUnavailebleRed &&
