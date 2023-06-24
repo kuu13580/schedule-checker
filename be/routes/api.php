@@ -21,7 +21,7 @@ use App\Http\Controllers\SchedulesController;
 Route::get('events/{id}/{hash}', [EventsController::class, 'getEventById']);
 Route::post('events/create', [EventsController::class, 'createEvent']);
 Route::post('events/{id}/{hash}/authenticate', [EventsController::class, 'authenticate']);
-Route::post('events/{id}/{hash}/messages', [EventsController::class, 'getUserMessagesByEventId']);
+Route::post('messages/{id}/{hash}', [EventsController::class, 'getUserMessagesByEventId']);
 
 Route::get('users/{event_id}/{hash}', [UsersController::class, 'getUsersByEventId']);
 Route::post('users/{event_id}/{hash}/create', [UsersController::class, 'createUser']);
