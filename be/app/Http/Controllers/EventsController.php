@@ -64,4 +64,28 @@ class EventsController extends Controller
         'result' => true
       ]);
     }
+
+    public function getUserMessagesByEventId($id, $hash, Request $request)
+    {
+      // ハッシュ値チェック
+      $event = Event::where('id', $id)->first();
+      if ($hash != $event->hash) return $this->SendError('Hash is invalid.');
+
+      // 認証
+      $attr = $request->validate([
+          'password' => 'required|numeric|digits:4'
+      ]);
+      if (!password_verify($attr['password'], $event->password)) return $this->SendError('password is incorrect.');
+
+      $users = User::where('event_id', $id)->get();
+      $data = [];
+      foreach ($users as $user) {
+        $data[] = [
+          'user_id' => $user->id,
+          'name' => $user->name,
+          'message' => $user->message
+        ];
+      }
+      return $this->successData($data);
+    }
 }
