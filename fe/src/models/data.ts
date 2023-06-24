@@ -34,3 +34,9 @@ export type EventScheduleData = {
   status: string[];
   statusWeight: number[];
 }
+
+export type UserMessage = {
+  userId: number;
+  userName: string;
+  message: string;
+}
