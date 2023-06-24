@@ -1,5 +1,5 @@
 import { useParams } from "react-router-dom"
-import { Header, ViewCalendar, LoadingBackdrop, OwnerPasswordBox } from "../components";
+import { Header, ViewCalendar, LoadingBackdrop, OwnerPasswordBox, MessageListView } from "../components";
 import { DateRange } from "../models";
 import dayjs from "dayjs";
 import { Box, Checkbox, Container, FormControlLabel, Slider, Typography } from "@mui/material";
@@ -143,6 +143,7 @@ export const OwnerView = () => {
               />
             }
             <ViewCalendar dateRange={dateRange} password={password} func={func}/>
+            <MessageListView password={password} />
           </>
         }
       </Container>
