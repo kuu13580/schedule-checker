@@ -9,3 +9,4 @@ export * from './Header';
 export * from './ViewCalendar';
 export * from './OwnerPassWordBox';
 export * from './MessageListView';
+export * from './HowToUse';
