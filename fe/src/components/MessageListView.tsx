@@ -33,7 +33,7 @@ export const MessageListView = (props: {password: string}) => {
     <>
       <Stack spacing={2} sx={{ my: 2 }}>
         {userMessages.map((m) => {
-          if (m.message === "") return (<></>);
+          if (!m.message) return (<></>);
           return (
             <Paper key={m.userId} elevation={3}>
               <Box sx={{ m: 1 }}>
