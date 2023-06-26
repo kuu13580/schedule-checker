@@ -1,11 +1,16 @@
 import { Link } from 'react-router-dom';
-import { AppBar, Box, Container, Toolbar, Typography, Button } from '@mui/material';
+import { AppBar, Box, Container, Toolbar, Typography, Button, Chip } from '@mui/material';
 import { Page } from '../models';
+import { useState } from 'react';
+import { HowToUse } from './HowToUse';
+import { grey } from '@mui/material/colors';
 
 export const Header = (props: { pages: Page[] }) => {
   const pages: Page[] = [
     { name: '新規作成', path: '/create' },
   ].concat(props.pages);
+
+  const [open, setOpen] = useState(false);
 
   return (
     <AppBar position="static">
@@ -37,6 +42,8 @@ export const Header = (props: { pages: Page[] }) => {
               </Link>
             ))}
           </Box>
+          <Chip label="使用方法" onClick={() => {setOpen(true)} } color='warning'/>
+          <HowToUse open={open} handleOpen={setOpen} />
         </Toolbar>
       </Container>
     </AppBar>
