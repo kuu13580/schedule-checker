@@ -23,7 +23,7 @@ export const Header = (props: { pages: Page[] }) => {
   return (
     <AppBar position="static">
       <Container maxWidth='md'>
-        <Toolbar>
+        <Toolbar disableGutters>
           <Typography
             variant="h5"
             noWrap
@@ -55,8 +55,7 @@ export const Header = (props: { pages: Page[] }) => {
           <HowToUse open={open} handleOpen={setOpen} />
           <Box sx={{ display: { xs: 'flex', sm: 'none' } }}>
             <IconButton
-              size="large"
-              aria-label="account of current user"
+              size="small"
               aria-controls="menu-appbar"
               aria-haspopup="true"
               onClick={handleOpenNavMenu}
