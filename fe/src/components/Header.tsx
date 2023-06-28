@@ -83,7 +83,9 @@ export const Header = (props: { pages: Page[] }) => {
             >
               {pages.map((page) => (
                 <MenuItem key={page.name} onClick={handleCloseNavMenu}>
-                  <Typography textAlign="center">{page.name}</Typography>
+                  <Link to={page.path} key={page.name} style={{ textDecoration: 'none', color: 'inherit' }}>
+                    <Typography textAlign="center">{page.name}</Typography>
+                  </Link>
                 </MenuItem>
               ))}
             </Menu>
