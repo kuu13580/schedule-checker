@@ -53,7 +53,7 @@ export const UserSelector = (props: {userId: string, setPassword: React.Dispatch
           label="ユーザー"
           value={userId}
           onChange={handleChange}
-          MenuProps={{PaperProps: {style: { maxHeight: '20svh', overflow: 'auto' }}}}
+          MenuProps={{PaperProps: {style: { maxHeight: '20svh', overflowY: 'scroll' }}}}
         >
           {users.map((user) => (
             <MenuItem key={user.id} value={user.id}>{user.name}</MenuItem>
