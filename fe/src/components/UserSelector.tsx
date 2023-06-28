@@ -55,10 +55,10 @@ export const UserSelector = (props: {userId: string, setPassword: React.Dispatch
           onChange={handleChange}
           MenuProps={{PaperProps: {style: { maxHeight: '30svh', overflowY: 'scroll' }}}}
         >
+          <MenuItem value="new">ユーザー追加</MenuItem>
           {users.map((user) => (
             <MenuItem key={user.id} value={user.id}>{user.name}</MenuItem>
           ))}
-          <MenuItem value="new">ユーザー追加</MenuItem>
         </Select>
       </FormControl>
       <LoadingBackdrop isShow={showLoading} />
