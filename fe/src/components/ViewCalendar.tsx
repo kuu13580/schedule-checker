@@ -38,6 +38,7 @@ export const ViewCalendar = (props: {dateRange: DateRange, func: (statusArr: num
         console.log(err);
       }
     );
+    // eslint-disable-next-line
   }, [dateRange]);
 
   const dateCellRender = (value: Dayjs) => {

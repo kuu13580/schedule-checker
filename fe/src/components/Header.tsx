@@ -3,7 +3,6 @@ import { AppBar, Box, Container, Toolbar, Typography, Button, Chip } from '@mui/
 import { Page } from '../models';
 import { useState } from 'react';
 import { HowToUse } from './HowToUse';
-import { grey } from '@mui/material/colors';
 
 export const Header = (props: { pages: Page[] }) => {
   const pages: Page[] = [

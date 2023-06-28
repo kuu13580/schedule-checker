@@ -9,7 +9,6 @@ import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import axios from "axios";
 import { DeleteUserButton, LoadingBackdrop, StatusRadio } from "./";
-import { set } from "react-hook-form";
 
 export const RegisterCalendar = (props: {userId: string, password: string, dateRange: DateRange, topBanner: (type: "error" | "success", msg: string) => void}) => {
   const password = props.password;
@@ -18,7 +17,7 @@ export const RegisterCalendar = (props: {userId: string, password: string, dateR
   const topBanner = props.topBanner;
 
   // パスパラメータ取得
-  const { eventId, hash } = useParams<{eventId: string, hash: string}>();
+  const { hash } = useParams<{hash: string}>();
 
   // const [eventName, setEventName] = useState<string>('');
   const [selectedValue, setSelectedValue] = useState<Dayjs>(dayjs());
