@@ -80,7 +80,7 @@ export const Register = () => {
     <>
       <Header pages={[{"name": "管理者画面", "path": `${process.env.REACT_APP_URL}/owner/${eventId}/${hash}`}]}/>
       {contextHolder}
-      <Container maxWidth='md' sx={{my: 2}}>
+      <Container maxWidth='md' sx={{ mt: 2, mb: 6 }}>
         <Typography
           variant="h4"
           sx = {{ my: 2 }}

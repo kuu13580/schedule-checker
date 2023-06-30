@@ -17,7 +17,7 @@ export const RegisterCalendar = (props: {userId: string, password: string, dateR
   const topBanner = props.topBanner;
 
   // パスパラメータ取得
-  const { eventId, hash } = useParams<{eventId: string, hash: string}>();
+  const { hash } = useParams<{hash: string}>();
 
   // const [eventName, setEventName] = useState<string>('');
   const [selectedValue, setSelectedValue] = useState<Dayjs>(dayjs());

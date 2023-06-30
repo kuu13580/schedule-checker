@@ -27,6 +27,7 @@ export const MessageListView = (props: {password: string}) => {
         console.log(err);
       }
     );
+    // eslint-disable-next-line
   }, []);
 
   return (

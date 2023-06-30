@@ -1,4 +1,4 @@
-import { Dialog, IconButton, Box } from '@mui/material';
+import { Dialog, IconButton } from '@mui/material';
 import CloseIcon from '@mui/icons-material/Close';
 import { DialogContent, DialogTitle, AppBar, Toolbar, Card, CardContent, Typography } from '@mui/material';
 import createImage from '../img/create.png';
