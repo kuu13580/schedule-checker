@@ -2,14 +2,13 @@ import { Calendar, ConfigProvider } from "antd";
 import { Schedule, DateRange } from "../models";
 import { Dayjs } from "dayjs";
 import jaJP from 'antd/lib/locale/ja_JP';
-import "../styles/RegisterCalendar.css"
+import "../styles/RegisterCalendar.css?ver=1.0.0"
 import { Box, Button, TextField, Dialog, DialogTitle, DialogContent, DialogActions } from "@mui/material";
 import dayjs from "dayjs";
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import axios from "axios";
 import { DeleteUserButton, LoadingBackdrop, StatusRadio } from "./";
-import { set } from "react-hook-form";
 
 export const RegisterCalendar = (props: {userId: string, password: string, dateRange: DateRange, topBanner: (type: "error" | "success", msg: string) => void}) => {
   const password = props.password;
