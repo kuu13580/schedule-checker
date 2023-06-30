@@ -9,6 +9,7 @@ import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import axios from "axios";
 import { DeleteUserButton, LoadingBackdrop, StatusRadio } from "./";
+import { set } from "react-hook-form";
 
 export const RegisterCalendar = (props: {userId: string, password: string, dateRange: DateRange, topBanner: (type: "error" | "success", msg: string) => void}) => {
   const password = props.password;
@@ -106,6 +107,7 @@ export const RegisterCalendar = (props: {userId: string, password: string, dateR
         topBanner("error", 'データの保存に失敗しました');
       })
       .finally(() => {
+        setIsChenged(false);
         setShowLoading(false);
       });
   }
