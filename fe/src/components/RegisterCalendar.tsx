@@ -3,13 +3,12 @@ import { Schedule, DateRange } from "../models";
 import { Dayjs } from "dayjs";
 import jaJP from 'antd/lib/locale/ja_JP';
 import "../styles/RegisterCalendar.css"
-import { Box, Button, TextField } from "@mui/material";
+import { Box, Button, TextField, Dialog, DialogTitle, DialogContent, DialogActions } from "@mui/material";
 import dayjs from "dayjs";
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import axios from "axios";
 import { DeleteUserButton, LoadingBackdrop, StatusRadio } from "./";
-import { set } from "react-hook-form";
 
 export const RegisterCalendar = (props: {userId: string, password: string, dateRange: DateRange, topBanner: (type: "error" | "success", msg: string) => void}) => {
   const password = props.password;
@@ -26,6 +25,15 @@ export const RegisterCalendar = (props: {userId: string, password: string, dateR
   const [selectedStatus, setSelectedStatus] = useState<string>('unavailable');
   const [showLoading, setShowLoading] = useState<boolean>(false);
   const [textMessage, setTextMessage] = useState<string>('');
+  const [isChenged, setIsChenged] = useState<boolean>(false);
+
+  useEffect(() => {
+    window.addEventListener('beforeunload', (e) => { if (isChenged) {e.preventDefault(); e.returnValue = 'check';} });
+    // eslint-disable-next-line
+    return () => {
+      window.removeEventListener('beforeunload', (e) => { if (isChenged) {e.preventDefault(); e.returnValue = 'check';}
+    }); }
+  }, [isChenged]);
 
   useEffect(() => {
     setSelectedValue(dateRange.start);
@@ -70,6 +78,7 @@ export const RegisterCalendar = (props: {userId: string, password: string, dateR
 
   // idに対応するローカルデータを更新
   const setStatusByDate = (date: Dayjs) => {
+    setIsChenged(true);
     setData((prev) => {
       return prev.map((d) => {
         if (d.date.isSame(date)) {
